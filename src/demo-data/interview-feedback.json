@@ -1,0 +1,94 @@
+{
+  "summary": "Technical round showed solid React fundamentals but weak depth on performance optimization and Playwright.",
+  "weakAreas": [
+    {
+      "title": "Performance optimization",
+      "category": "Frontend",
+      "severity": "HIGH",
+      "source": "INTERVIEW_FEEDBACK",
+      "suggestedActions": ["Review React Profiler", "Practice explaining LCP optimizations"]
+    },
+    {
+      "title": "Playwright E2E",
+      "category": "Testing",
+      "severity": "MEDIUM",
+      "source": "INTERVIEW_FEEDBACK",
+      "suggestedActions": ["Complete Playwright getting started", "Add one E2E test to portfolio project"]
+    }
+  ],
+  "suggestedPractice": [
+    "Explain how you would debug a slow React re-render",
+    "Walk through setting up Playwright in a Next.js app"
+  ],
+  "roadmapUpdates": [
+    {
+      "action": "BUMP_PRIORITY",
+      "matchSkillName": "Playwright",
+      "priority": "CRITICAL"
+    },
+    {
+      "action": "ADD_TASK",
+      "title": "React rendering mental model",
+      "topic": "Performance",
+      "skillName": "React",
+      "category": "Production Skills",
+      "priority": "HIGH",
+      "reason": "Interview feedback: struggled explaining useMemo/useCallback and re-renders",
+      "gapDescription": "Could not clearly explain when memoization helps vs hurts",
+      "suggestedGoal": "Explain reconciliation, re-renders, and memoization tradeoffs in 3 minutes",
+      "difficulty": "Intermediate",
+      "careerImpact": "High for mid-level React interviews",
+      "suggestedNextAction": "Use the interview prompt to draft a spoken answer",
+      "estimatedEffort": "2–3 days",
+      "practiceIdea": "Profile a slow list component with React DevTools and document before/after memoization",
+      "relatedSkills": ["React", "Performance"],
+      "learningPrompts": {
+        "beginner": "Explain React re-renders, useMemo, and useCallback in Traditional Chinese with simple examples.",
+        "practice": "Give me exercises to identify unnecessary re-renders in a parent/child tree. No solutions.",
+        "interview": "Help me prepare a 2-minute answer: When do useMemo and useCallback actually help?",
+        "debugging": "Teach a mental model for debugging 'my component re-renders too much'.",
+        "project": "Which CareerOS components might benefit from memoization — and which would not?"
+      },
+      "practiceTasks": [
+        "Draw a re-render diagram for a form + list feature",
+        "Practice explaining without looking at docs"
+      ],
+      "interviewQuestions": [
+        "What triggers a re-render in React?",
+        "When is memoization premature optimization?"
+      ]
+    },
+    {
+      "action": "ADD_TASK",
+      "title": "Frontend architecture interview practice",
+      "topic": "Architecture",
+      "skillName": "Frontend Architecture",
+      "category": "Production Skills",
+      "priority": "HIGH",
+      "reason": "Interview feedback: weak on architecture explanation",
+      "gapDescription": "Difficulty articulating folder structure, state boundaries, and API layers",
+      "suggestedGoal": "Present a 5-minute architecture walkthrough of a real project",
+      "difficulty": "Intermediate",
+      "careerImpact": "High for senior-leaning and architect-track roles",
+      "suggestedNextAction": "Record yourself explaining CareerOS architecture",
+      "estimatedEffort": "2 days",
+      "practiceIdea": "Whiteboard CareerOS: pages, services, AI layer, and data flow",
+      "relatedSkills": ["React", "Next.js", "System Design"],
+      "learningPrompts": {
+        "beginner": "What should a frontend architecture explanation cover in a senior interview?",
+        "practice": "Give me a rubric to score my own architecture presentation.",
+        "interview": "Mock interview: explain how you structured a production React app.",
+        "debugging": "How do you decide where business logic lives — component vs hook vs service?",
+        "project": "Outline CareerOS architecture for an interviewer in bullet points."
+      },
+      "practiceTasks": [
+        "Draw module diagram for CareerOS",
+        "List 3 tradeoffs you made in this codebase"
+      ],
+      "interviewQuestions": [
+        "How do you organize a large React codebase?",
+        "Where does server state vs UI state live?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,526 @@
+{
+  "common": {
+    "appName": "CareerOS",
+    "metaTitle": "CareerOS — AI 求職工作區",
+    "metaDescription": "分析職缺描述、客製履歷、找出技能缺口，並從每次面試中持續進步。",
+    "emptyPlaceholder": "—",
+    "localeEn": "English",
+    "localeZhTw": "繁體中文",
+    "actions": {
+      "open": "開啟",
+      "back": "返回",
+      "cancel": "取消",
+      "save": "儲存",
+      "view": "檢視",
+      "editProfile": "編輯個人檔案",
+      "signOut": "登出",
+      "getStarted": "開始使用",
+      "continue": "繼續"
+    },
+    "loading": {
+      "loading": "載入中...",
+      "saving": "儲存中...",
+      "signingIn": "登入中...",
+      "creating": "建立中...",
+      "analyzing": "分析中...",
+      "generating": "產生中..."
+    },
+    "labels": {
+      "email": "電子郵件",
+      "password": "密碼",
+      "name": "姓名",
+      "company": "公司",
+      "jobTitle": "職稱",
+      "date": "日期",
+      "title": "標題",
+      "content": "內容",
+      "location": "地點"
+    },
+    "errors": {
+      "analysisFailed": "分析失敗",
+      "registrationFailed": "註冊失敗"
+    },
+    "analysis": {
+      "strengths": "優勢",
+      "weaknesses": "待改進",
+      "missingSkill": "缺少：{skill}",
+      "scoreOutOf100": "分數：{score}/100",
+      "percentMatch": "匹配 {score}%",
+      "fitPercent": "契合度：{score}%",
+      "overallPercent": "總分：{score}%",
+      "recommendation": "建議：",
+      "original": "原文：",
+      "suggested": "建議：",
+      "type": "類型：{type}"
+    },
+    "defaults": {
+      "targetRole": "前端工程師",
+      "unnamed": "未命名"
+    },
+    "welcome": "歡迎{nameSuffix}",
+    "welcomeNameSuffix": "，{name}"
+  },
+  "nav": {
+    "dashboard": "儀表板",
+    "careerProfile": "職涯檔案",
+    "resume": "履歷",
+    "jobs": "職缺",
+    "learning": "學習",
+    "interview": "面試",
+    "settings": "設定",
+    "signIn": "登入",
+    "signUp": "註冊",
+    "publicDemo": "公開示範",
+    "createAccount": "建立帳號"
+  },
+  "landing": {
+    "heroTitle": "CareerOS",
+    "heroDescription": "CareerOS 是專為軟體工程師打造的 AI 求職與技能成長平台。協助你分析履歷、比對職缺描述、客製履歷版本、找出技能缺口、產生學習路徑，並準備面試。",
+    "features": {
+      "resumeIntelligence": {
+        "title": "履歷智慧分析",
+        "description": "分析履歷品質、優化條列描述，並管理多個客製版本。"
+      },
+      "jobFitAnalysis": {
+        "title": "職缺契合分析",
+        "description": "比對職缺與你的檔案、技能缺口與職缺風險。"
+      },
+      "skillGrowthRoadmap": {
+        "title": "技能成長指引",
+        "description": "個人化路徑、優先技能與 AI 學習 Prompt — 不是課程平台。"
+      }
+    },
+    "footer": "前端工程師導向 · 作品集 MVP · 預設 Mock AI"
+  },
+  "auth": {
+    "login": {
+      "title": "登入 CareerOS",
+      "demoCredentials": "示範帳號：demo@careeros.dev / demo123456",
+      "submit": "登入",
+      "invalidCredentials": "電子郵件或密碼錯誤",
+      "noAccount": "還沒有帳號？",
+      "registerLink": "註冊"
+    },
+    "register": {
+      "title": "建立帳號",
+      "description": "開始你的職涯成長工作區",
+      "passwordMin": "密碼（至少 8 字元）",
+      "submit": "註冊",
+      "hasAccount": "已有帳號？",
+      "signInLink": "登入"
+    },
+    "onboarding": {
+      "steps": {
+        "resume": "履歷",
+        "role": "目標職位",
+        "skills": "技能",
+        "review": "確認"
+      },
+      "fullName": "全名",
+      "pasteResume": "貼上履歷",
+      "pasteResumePlaceholder": "請貼上履歷文字（至少 50 字）...",
+      "analyzeAndContinue": "分析並繼續",
+      "targetRole": "目標職位",
+      "resumeScore": "履歷分數：{score}/100",
+      "continueToSkills": "繼續選擇技能",
+      "confirmSkills": "確認履歷偵測到的技能並新增：",
+      "detected": "已偵測：{skill}",
+      "reviewName": "姓名：",
+      "reviewRole": "職位：",
+      "reviewSkillsSelected": "已選技能：",
+      "completeOnboarding": "完成 onboarding"
+    }
+  },
+  "demo": {
+    "badge": "公開示範 · Mock AI",
+    "title": "體驗 CareerOS — 無需登入",
+    "subtitle": "探索 Mock AI 分析功能（作品集示範用）。註冊後可儲存個人檔案、職缺與學習路徑。",
+    "tabs": {
+      "resumeAnalysis": "履歷分析",
+      "jobFitAnalysis": "職缺契合分析"
+    },
+    "resume": {
+      "cardTitle": "貼上履歷",
+      "cardDescription": "至少 50 字。使用預先產生的 Mock 結果。",
+      "placeholder": "請在此貼上履歷文字...",
+      "analyze": "分析履歷"
+    },
+    "job": {
+      "cardTitle": "貼上職缺描述",
+      "cardDescription": "至少 50 字。Mock 契合分數與建議。",
+      "placeholder": "請在此貼上職缺描述...",
+      "analyze": "分析職缺契合度"
+    },
+    "cta": {
+      "title": "想儲存職缺、學習路徑與面試回饋？",
+      "description": "建立免費帳號 — 完整工作區（Auth.js + PostgreSQL）。"
+    }
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "歡迎使用 CareerOS",
+      "description": "完成 onboarding 以解鎖你的職涯工作區。",
+      "startOnboarding": "開始 onboarding"
+    },
+    "title": "儀表板",
+    "subtitle": "求職與成長概覽",
+    "stats": {
+      "jobsTracked": "追蹤職缺",
+      "inPipeline": "進行中 {count} 件",
+      "resumeScore": "履歷分數",
+      "weakAreas": "待加強項目",
+      "roadmaps": "學習路徑"
+    },
+    "activeWeakAreas": {
+      "title": "待加強項目",
+      "empty": "尚無待加強項目。記錄面試回饋以發現缺口。"
+    },
+    "learningTasks": {
+      "title": "學習任務",
+      "emptyPrefix": "產生學習路徑",
+      "emptySuffix": "以查看任務。"
+    },
+    "recentJobs": {
+      "title": "最近職缺",
+      "addFirst": "新增第一個職缺",
+      "score": "分數：{score}"
+    },
+    "recentInterviews": {
+      "title": "最近面試回饋"
+    },
+    "profile": {
+      "title": "職涯檔案",
+      "editProfile": "編輯個人檔案",
+      "empty": {
+        "title": "尚無職涯檔案",
+        "description": "完成 onboarding 以建立你的檔案。",
+        "action": "開始 onboarding"
+      },
+      "fields": {
+        "title": "職稱：",
+        "location": "地點：",
+        "targetRoles": "目標職位："
+      },
+      "skillsCount": "技能（{count}）",
+      "workExperience": "工作經歷",
+      "experienceLine": "{jobTitle} @ {companyName}"
+    },
+    "profileEdit": {
+      "title": "編輯職涯檔案",
+      "basicInfo": "基本資料",
+      "fields": {
+        "fullName": "全名",
+        "currentTitle": "目前職稱",
+        "location": "地點",
+        "email": "電子郵件",
+        "targetRoles": "目標職位（以逗號分隔）"
+      },
+      "resumeText": "履歷文字"
+    }
+  },
+  "jobs": {
+    "title": "職缺",
+    "addJob": "新增職缺",
+    "empty": {
+      "title": "尚無職缺",
+      "description": "貼上職缺描述以追蹤並分析契合度。",
+      "action": "新增職缺"
+    },
+    "new": {
+      "title": "新增職缺",
+      "jobDetails": "職缺詳情",
+      "jobUrl": "職缺連結",
+      "workType": "工作型態",
+      "jobDescription": "職缺描述",
+      "createJob": "建立職缺"
+    },
+    "detail": {
+      "back": "返回",
+      "latestFitAnalysis": "最新契合分析",
+      "viewFullReport": "查看完整報告",
+      "tailoredResumeSuggestion": "客製履歷建議",
+      "jobDescription": "職缺描述"
+    },
+    "analysis": {
+      "title": "職缺契合與風險分析",
+      "noAnalysis": "尚無分析。",
+      "backToJob": "返回職缺",
+      "technical": "技術：{score}%",
+      "experience": "經驗：{score}%",
+      "remote": "遠端：{score}%",
+      "english": "英文：{score}%",
+      "skillGap": "技能缺口",
+      "jobRiskAnalysis": "職缺風險分析"
+    },
+    "actions": {
+      "analyzeJobFit": "分析職缺契合度",
+      "tailoredResumeSuggestions": "客製履歷建議",
+      "createJobResumeVersion": "建立職缺履歷版本"
+    },
+    "interviewPrep": {
+      "title": "面試準備（依 JD）",
+      "generateQuestions": "產生面試題",
+      "regenerateQuestions": "重新產生面試題",
+      "answerDirection": "建議回答方向"
+    },
+    "generatedVersionName": "職缺客製版"
+  },
+  "resume": {
+    "hub": {
+      "title": "履歷",
+      "analyzer": {
+        "title": "履歷分析器",
+        "description": "分析品質並取得改進建議"
+      },
+      "versions": {
+        "title": "履歷版本",
+        "description": "管理多個客製版本"
+      },
+      "export": {
+        "title": "匯出",
+        "description": "下載 PDF 或 Markdown"
+      }
+    },
+    "analyzer": {
+      "title": "履歷分析器",
+      "resumeText": "履歷文字",
+      "analyze": "分析履歷",
+      "reviewExaggeration": "檢查誇大描述"
+    },
+    "versions": {
+      "title": "履歷版本",
+      "empty": "尚無版本。請在上方建立。",
+      "forJob": "對應 {companyName} 的 {jobTitle}",
+      "noContent": "無內容"
+    },
+    "versionDetail": {
+      "preview": "預覽"
+    },
+    "export": {
+      "title": "匯出履歷",
+      "selectVersion": "選擇版本",
+      "resumeVersion": "履歷版本",
+      "selectVersionPlaceholder": "選擇版本",
+      "exportMarkdown": "匯出 Markdown",
+      "exportPdf": "匯出 PDF",
+      "backToResume": "返回履歷"
+    },
+    "createVersion": {
+      "newVersion": "新版本",
+      "name": "名稱",
+      "namePlaceholder": "例如：英文基礎履歷",
+      "markdownContent": "Markdown 內容",
+      "createVersion": "建立版本"
+    }
+  },
+  "learning": {
+    "title": "學習",
+    "subtitle": "技能成長指引 — 接下來學什麼、為何重要、以及搭配 AI 的學習 Prompt。不是完整課程平台。",
+    "generateRoadmap": "產生學習路徑",
+    "yourRoadmaps": "你的學習路徑",
+    "growthDirectionLabel": "成長方向",
+    "empty": {
+      "title": "尚無學習路徑",
+      "description": "選擇成長方向，依履歷、技能與職缺缺口產生個人化路徑。",
+      "action": "在下方產生"
+    },
+    "taskCount": "{count} 個任務",
+    "skillStage": {
+      "title": "你的技能階段"
+    },
+    "priorityCards": {
+      "title": "建議優先學習",
+      "difficulty": "難度",
+      "careerImpact": "職涯影響",
+      "nextAction": "下一步",
+      "viewTask": "查看任務詳情"
+    },
+    "generate": {
+      "title": "產生成長路徑",
+      "description": "依個人檔案、技能、可選職缺缺口與面試弱點產生指引。",
+      "growthDirection": "目標成長方向",
+      "customDirection": "或自行輸入",
+      "customPlaceholder": "例如：AI SaaS 前端工程師",
+      "jobGap": "聚焦某職缺的技能缺口",
+      "jobGapPlaceholder": "選擇已分析的職缺",
+      "noJob": "不指定職缺",
+      "submit": "產生學習路徑",
+      "defaultDirection": "前端工程師",
+      "rateLimited": "今日路徑產生次數已達上限，請明天再試。",
+      "failed": "產生學習路徑失敗。",
+      "fromJobCta": "依缺口產生學習路徑",
+      "presets": {
+        "remoteFrontend": "遠端前端工程師",
+        "reactFrontend": "React 前端工程師",
+        "fullstackLeaning": "偏全端的前端",
+        "aiSaasFrontend": "AI SaaS 前端",
+        "frontendArchitect": "前端架構師",
+        "backendBasics": "前端工程師的後端基礎",
+        "betterUiSlicing": "更好的 UI 切版 / 排版"
+      }
+    },
+    "prompts": {
+      "title": "學習 Prompt 庫",
+      "beginner": "入門解說",
+      "practice": "實作練習",
+      "interview": "面試準備",
+      "debugging": "除錯 / 心智模型",
+      "project": "專案應用",
+      "copy": "複製",
+      "copied": "已複製"
+    },
+    "roadmapDetail": {
+      "effort": "預估：{effort}",
+      "back": "返回",
+      "skillStage": "你的技能階段",
+      "priorityCards": "優先學習",
+      "treeTitle": "路徑結構",
+      "growthDirection": "成長方向",
+      "uncategorized": "其他主題",
+      "difficulty": "難度",
+      "careerImpact": "職涯影響",
+      "nextAction": "下一步",
+      "viewTask": "查看任務"
+    },
+    "taskStatus": {
+      "completed": "已完成",
+      "start": "開始",
+      "done": "完成"
+    },
+    "taskNote": {
+      "label": "任務筆記（簡易版 — 非完整知識庫）",
+      "placeholder": "此任務的學習筆記...",
+      "saveNote": "儲存筆記",
+      "deleteNote": "刪除筆記"
+    },
+    "taskResources": {
+      "skill": "技能",
+      "topic": "主題",
+      "category": "分類",
+      "gap": "你的缺口",
+      "goal": "學習目標",
+      "practiceIdea": "練習專案",
+      "relatedSkills": "相關技能",
+      "practice": "額外練習",
+      "interviewQuestions": "建議準備的面試題"
+    }
+  },
+  "interview": {
+    "title": "面試回饋",
+    "recordFeedback": "記錄回饋",
+    "empty": {
+      "title": "尚無面試紀錄",
+      "description": "記錄面試過程以改進下一次應徵。",
+      "action": "記錄回饋"
+    },
+    "new": {
+      "title": "記錄面試回饋",
+      "details": "面試詳情",
+      "whatWentWell": "表現好的地方",
+      "whatWentBadly": "表現不佳的地方",
+      "stuckPoints": "卡住的地方",
+      "sampleQuestion": "被問到的範例問題",
+      "yourAnswer": "你的回答",
+      "saveAndAnalyze": "儲存並分析"
+    },
+    "detail": {
+      "analyzeWithAi": "以 AI 分析回饋",
+      "aiSummary": "AI 摘要",
+      "yourNotes": "你的筆記",
+      "well": "好的：",
+      "bad": "不佳：",
+      "stuck": "卡住：",
+      "weakAreas": "待加強項目",
+      "suggestedPractice": "建議練習",
+      "questions": "問題",
+      "roadmapUpdated": "學習路徑已更新",
+      "viewRoadmap": "查看學習路徑"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "environment": "環境",
+    "aiMode": "AI 模式",
+    "mockModeDescription": "Mock 模式使用預先產生的示範資料。設定 AI_MODE=openai 與 OPENAI_API_KEY 以使用真實 AI（含速率限制）。"
+  },
+  "knowledge": {
+    "newNote": "新筆記",
+    "addNote": "新增筆記"
+  },
+  "outputLanguage": {
+    "label": "AI 輸出語言",
+    "en": "English",
+    "zhTw": "繁體中文",
+    "bilingual": "雙語（EN + 中文）"
+  },
+  "enums": {
+    "workType": {
+      "REMOTE": "遠端",
+      "HYBRID": "混合",
+      "ONSITE": "現場",
+      "UNKNOWN": "未知"
+    },
+    "jobStatus": {
+      "SAVED": "已儲存",
+      "ANALYZING": "分析中",
+      "INTERESTED": "有興趣",
+      "NOT_SUITABLE": "不適合",
+      "READY_TO_APPLY": "準備投遞",
+      "APPLIED": "已投遞",
+      "HR_SCREEN": "HR 篩選",
+      "TECHNICAL_INTERVIEW": "技術面試",
+      "FINAL_INTERVIEW": "最終面試",
+      "OFFER": "錄取",
+      "REJECTED": "未錄取",
+      "WITHDRAWN": "已撤回"
+    },
+    "applyRecommendation": {
+      "STRONG_APPLY": "強烈建議投遞",
+      "WORTH_APPLYING": "值得投遞",
+      "STRETCH_ROLE": "挑戰性職位",
+      "NOT_RECOMMENDED": "不建議投遞"
+    },
+    "learningTaskStatus": {
+      "NOT_STARTED": "未開始",
+      "IN_PROGRESS": "進行中",
+      "COMPLETED": "已完成",
+      "SKIPPED": "已略過"
+    },
+    "priority": {
+      "LOW": "低",
+      "MEDIUM": "中",
+      "HIGH": "高",
+      "CRITICAL": "緊急"
+    },
+    "skillLevel": {
+      "BEGINNER": "初學",
+      "FAMILIAR": "熟悉",
+      "WORKING_EXPERIENCE": "實務經驗",
+      "STRONG": "精通"
+    },
+    "interviewStage": {
+      "HR_SCREEN": "HR 篩選",
+      "TECHNICAL_INTERVIEW": "技術面試",
+      "FINAL_INTERVIEW": "最終面試",
+      "OTHER": "其他"
+    },
+    "interviewResult": {
+      "PENDING": "待定",
+      "PASSED": "通過",
+      "REJECTED": "未通過",
+      "WITHDRAWN": "已撤回",
+      "UNKNOWN": "未知"
+    },
+    "roadmapSource": {
+      "MANUAL": "手動",
+      "JOB_ANALYSIS": "職缺分析",
+      "INTERVIEW_FEEDBACK": "面試回饋",
+      "AI_GENERATED": "AI 產生"
+    },
+    "riskSeverity": {
+      "HIGH": "高",
+      "MEDIUM": "中",
+      "LOW": "低"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "score": 72,
+  "strengths": [
+    "Clear frontend focus with React and TypeScript",
+    "Demonstrates component architecture experience",
+    "Includes measurable project outcomes"
+  ],
+  "weaknesses": [
+    "Summary could better highlight remote collaboration",
+    "Next.js production experience is understated",
+    "Testing experience is not visible enough"
+  ],
+  "atsSuggestions": [
+    "Add Next.js and React Query keywords where accurate",
+    "Use standard section headings: Experience, Projects, Skills",
+    "Keep bullet points under 2 lines for ATS parsing"
+  ],
+  "detectedSkills": [
+    { "name": "React", "category": "Core", "confidence": 0.92 },
+    { "name": "TypeScript", "category": "Core", "confidence": 0.9 },
+    { "name": "Next.js", "category": "Core", "confidence": 0.75 },
+    { "name": "Tailwind CSS", "category": "Styling", "confidence": 0.85 },
+    { "name": "Vue", "category": "Core", "confidence": 0.7 }
+  ],
+  "improvementSuggestions": [
+    {
+      "section": "Summary",
+      "original": "Frontend developer with web experience.",
+      "suggested": "Frontend Engineer with 4+ years building React/TypeScript products, including SSR with Next.js and cross-team remote delivery.",
+      "reason": "Adds specificity and aligns with target roles without exaggeration.",
+      "riskFlag": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "positioning": "Position as a product-minded Frontend Engineer with React/Next.js delivery and remote collaboration experience.",
+  "summarySuggestion": "Frontend Engineer specializing in React, TypeScript, and Next.js. Experienced shipping accessible UI, integrating REST APIs, and collaborating async with design and backend teams.",
+  "skillsToEmphasize": ["React", "TypeScript", "Next.js", "React Query", "Tailwind CSS"],
+  "bulletSuggestions": [
+    {
+      "experienceId": null,
+      "original": "Built web applications with React.",
+      "suggested": "Developed customer-facing React/TypeScript features with React Query, improving page load and reducing support tickets by 15%.",
+      "reason": "Adds stack keywords and measurable outcome from real work."
+    }
+  ],
+  "keywordsToAdd": ["Next.js", "React Query", "remote collaboration", "accessibility"],
+  "sectionsToReduce": ["Older Vue-only bullets unless JD mentions Vue"]
+}

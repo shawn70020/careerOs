@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports:
+      # Host 5433 avoids conflict with local Windows PostgreSQL on 5432
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: careeros
+    volumes:
+      - careeros_pg:/var/lib/postgresql/data
+
+volumes:
+  careeros_pg:

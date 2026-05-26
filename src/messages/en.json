@@ -1,0 +1,526 @@
+{
+  "common": {
+    "appName": "CareerOS",
+    "metaTitle": "CareerOS — AI Job Search Workspace",
+    "metaDescription": "Analyze job descriptions, tailor resumes, identify skill gaps, and improve with every interview.",
+    "emptyPlaceholder": "—",
+    "localeEn": "English",
+    "localeZhTw": "繁體中文",
+    "actions": {
+      "open": "Open",
+      "back": "Back",
+      "cancel": "Cancel",
+      "save": "Save",
+      "view": "View",
+      "editProfile": "Edit profile",
+      "signOut": "Sign out",
+      "getStarted": "Get started",
+      "continue": "Continue"
+    },
+    "loading": {
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "signingIn": "Signing in...",
+      "creating": "Creating...",
+      "analyzing": "Analyzing...",
+      "generating": "Generating..."
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Password",
+      "name": "Name",
+      "company": "Company",
+      "jobTitle": "Job title",
+      "date": "Date",
+      "title": "Title",
+      "content": "Content",
+      "location": "Location"
+    },
+    "errors": {
+      "analysisFailed": "Analysis failed",
+      "registrationFailed": "Registration failed"
+    },
+    "analysis": {
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "missingSkill": "Missing: {skill}",
+      "scoreOutOf100": "Score: {score}/100",
+      "percentMatch": "{score}% match",
+      "fitPercent": "Fit: {score}%",
+      "overallPercent": "Overall: {score}%",
+      "recommendation": "Recommendation:",
+      "original": "Original:",
+      "suggested": "Suggested:",
+      "type": "Type: {type}"
+    },
+    "defaults": {
+      "targetRole": "Frontend Engineer",
+      "unnamed": "Unnamed"
+    },
+    "welcome": "Welcome{nameSuffix}",
+    "welcomeNameSuffix": ", {name}"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "careerProfile": "Career Profile",
+    "resume": "Resume",
+    "jobs": "Jobs",
+    "learning": "Learning",
+    "interview": "Interview",
+    "settings": "Settings",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "publicDemo": "Public demo",
+    "createAccount": "Create account"
+  },
+  "landing": {
+    "heroTitle": "CareerOS",
+    "heroDescription": "CareerOS is an AI-powered job search and skill growth platform for software engineers. It helps you analyze resumes, compare job descriptions, tailor resume versions, identify skill gaps, generate learning roadmaps, and prepare for interviews.",
+    "features": {
+      "resumeIntelligence": {
+        "title": "Resume Intelligence",
+        "description": "Analyze your resume, improve bullets, and manage tailored versions."
+      },
+      "jobFitAnalysis": {
+        "title": "Job Fit Analysis",
+        "description": "Compare job descriptions with your profile, skill gaps, and job risks."
+      },
+      "skillGrowthRoadmap": {
+        "title": "Skill Growth Guidance",
+        "description": "Personalized roadmaps, priority skills, and AI learning prompts — not a course platform."
+      }
+    },
+    "footer": "Frontend Engineer focus · Portfolio MVP · Mock AI by default"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to CareerOS",
+      "demoCredentials": "Demo: demo@careeros.dev / demo123456",
+      "submit": "Sign in",
+      "invalidCredentials": "Invalid email or password",
+      "noAccount": "No account?",
+      "registerLink": "Register"
+    },
+    "register": {
+      "title": "Create account",
+      "description": "Start your career growth workspace",
+      "passwordMin": "Password (min 8)",
+      "submit": "Register",
+      "hasAccount": "Have an account?",
+      "signInLink": "Sign in"
+    },
+    "onboarding": {
+      "steps": {
+        "resume": "Resume",
+        "role": "Role",
+        "skills": "Skills",
+        "review": "Review"
+      },
+      "fullName": "Full name",
+      "pasteResume": "Paste your resume",
+      "pasteResumePlaceholder": "Paste resume text here (min 50 characters)...",
+      "analyzeAndContinue": "Analyze & continue",
+      "targetRole": "Target role",
+      "resumeScore": "Resume score: {score}/100",
+      "continueToSkills": "Continue to skills",
+      "confirmSkills": "Confirm skills from resume and add more:",
+      "detected": "Detected: {skill}",
+      "reviewName": "Name:",
+      "reviewRole": "Role:",
+      "reviewSkillsSelected": "Skills selected:",
+      "completeOnboarding": "Complete onboarding"
+    }
+  },
+  "demo": {
+    "badge": "Public Demo · Mock AI",
+    "title": "Try CareerOS — No sign-in required",
+    "subtitle": "Explore mock AI analysis for portfolio demo. Sign up to save your profile, jobs, and learning roadmaps.",
+    "tabs": {
+      "resumeAnalysis": "Resume analysis",
+      "jobFitAnalysis": "Job fit analysis"
+    },
+    "resume": {
+      "cardTitle": "Paste resume",
+      "cardDescription": "Min 50 characters. Uses pre-generated mock output.",
+      "placeholder": "Paste your resume text here...",
+      "analyze": "Analyze resume"
+    },
+    "job": {
+      "cardTitle": "Paste job description",
+      "cardDescription": "Min 50 characters. Mock fit score and recommendation.",
+      "placeholder": "Paste the job description here...",
+      "analyze": "Analyze job fit"
+    },
+    "cta": {
+      "title": "Want to save jobs, roadmaps, and interview feedback?",
+      "description": "Create a free account — full workspace with Auth.js + PostgreSQL."
+    }
+  },
+  "dashboard": {
+    "welcome": {
+      "title": "Welcome to CareerOS",
+      "description": "Complete onboarding to unlock your career workspace.",
+      "startOnboarding": "Start onboarding"
+    },
+    "title": "Dashboard",
+    "subtitle": "Your job search and growth at a glance",
+    "stats": {
+      "jobsTracked": "Jobs tracked",
+      "inPipeline": "{count} in pipeline",
+      "resumeScore": "Resume score",
+      "weakAreas": "Weak areas",
+      "roadmaps": "Roadmaps"
+    },
+    "activeWeakAreas": {
+      "title": "Active weak areas",
+      "empty": "No weak areas yet. Record interview feedback to discover gaps."
+    },
+    "learningTasks": {
+      "title": "Learning tasks",
+      "emptyPrefix": "Generate a roadmap",
+      "emptySuffix": " to see tasks."
+    },
+    "recentJobs": {
+      "title": "Recent jobs",
+      "addFirst": "Add your first job",
+      "score": "Score: {score}"
+    },
+    "recentInterviews": {
+      "title": "Recent interview feedback"
+    },
+    "profile": {
+      "title": "Career Profile",
+      "editProfile": "Edit profile",
+      "empty": {
+        "title": "No career profile",
+        "description": "Complete onboarding to create your profile.",
+        "action": "Start onboarding"
+      },
+      "fields": {
+        "title": "Title:",
+        "location": "Location:",
+        "targetRoles": "Target roles:"
+      },
+      "skillsCount": "Skills ({count})",
+      "workExperience": "Work experience",
+      "experienceLine": "{jobTitle} @ {companyName}"
+    },
+    "profileEdit": {
+      "title": "Edit Career Profile",
+      "basicInfo": "Basic info",
+      "fields": {
+        "fullName": "Full name",
+        "currentTitle": "Current title",
+        "location": "Location",
+        "email": "Email",
+        "targetRoles": "Target roles (comma-separated)"
+      },
+      "resumeText": "Resume text"
+    }
+  },
+  "jobs": {
+    "title": "Jobs",
+    "addJob": "Add job",
+    "empty": {
+      "title": "No jobs yet",
+      "description": "Paste a job description to track and analyze fit.",
+      "action": "Add job"
+    },
+    "new": {
+      "title": "Add Job",
+      "jobDetails": "Job details",
+      "jobUrl": "Job URL",
+      "workType": "Work type",
+      "jobDescription": "Job description",
+      "createJob": "Create job"
+    },
+    "detail": {
+      "back": "Back",
+      "latestFitAnalysis": "Latest fit analysis",
+      "viewFullReport": "View full report",
+      "tailoredResumeSuggestion": "Tailored resume suggestion",
+      "jobDescription": "Job description"
+    },
+    "analysis": {
+      "title": "Job Fit & Risk Analysis",
+      "noAnalysis": "No analysis yet.",
+      "backToJob": "Back to job",
+      "technical": "Technical: {score}%",
+      "experience": "Experience: {score}%",
+      "remote": "Remote: {score}%",
+      "english": "English: {score}%",
+      "skillGap": "Skill gap",
+      "jobRiskAnalysis": "Job risk analysis"
+    },
+    "actions": {
+      "analyzeJobFit": "Analyze job fit",
+      "tailoredResumeSuggestions": "Tailored resume suggestions",
+      "createJobResumeVersion": "Create job resume version"
+    },
+    "interviewPrep": {
+      "title": "Interview preparation (from JD)",
+      "generateQuestions": "Generate interview questions",
+      "regenerateQuestions": "Regenerate questions",
+      "answerDirection": "Answer direction"
+    },
+    "generatedVersionName": "Tailored for job"
+  },
+  "resume": {
+    "hub": {
+      "title": "Resume",
+      "analyzer": {
+        "title": "Resume Analyzer",
+        "description": "Analyze quality and get improvements"
+      },
+      "versions": {
+        "title": "Resume Versions",
+        "description": "Manage multiple tailored versions"
+      },
+      "export": {
+        "title": "Export",
+        "description": "Download PDF or Markdown"
+      }
+    },
+    "analyzer": {
+      "title": "Resume Analyzer",
+      "resumeText": "Resume text",
+      "analyze": "Analyze resume",
+      "reviewExaggeration": "Review for exaggeration"
+    },
+    "versions": {
+      "title": "Resume Versions",
+      "empty": "No versions yet. Create one above.",
+      "forJob": "For {jobTitle} @ {companyName}",
+      "noContent": "No content"
+    },
+    "versionDetail": {
+      "preview": "Preview"
+    },
+    "export": {
+      "title": "Export Resume",
+      "selectVersion": "Select version",
+      "resumeVersion": "Resume version",
+      "selectVersionPlaceholder": "Select version",
+      "exportMarkdown": "Export Markdown",
+      "exportPdf": "Export PDF",
+      "backToResume": "Back to Resume"
+    },
+    "createVersion": {
+      "newVersion": "New version",
+      "name": "Name",
+      "namePlaceholder": "e.g. Base EN Resume",
+      "markdownContent": "Markdown content",
+      "createVersion": "Create version"
+    }
+  },
+  "learning": {
+    "title": "Learning",
+    "subtitle": "Skill growth guidance — what to learn next, why it matters, and prompts to study with AI. Not a full course platform.",
+    "generateRoadmap": "Generate roadmap",
+    "yourRoadmaps": "Your roadmaps",
+    "growthDirectionLabel": "Growth direction",
+    "empty": {
+      "title": "No roadmaps yet",
+      "description": "Choose a growth direction and generate a personalized roadmap from your resume, skills, and job gaps.",
+      "action": "Generate below"
+    },
+    "taskCount": "{count} tasks",
+    "skillStage": {
+      "title": "Your skill stage"
+    },
+    "priorityCards": {
+      "title": "Learn next (priority)",
+      "difficulty": "Difficulty",
+      "careerImpact": "Career impact",
+      "nextAction": "Next step",
+      "viewTask": "View task details"
+    },
+    "generate": {
+      "title": "Generate growth roadmap",
+      "description": "Based on your profile, skills, optional job gaps, and interview weak areas.",
+      "growthDirection": "Target growth direction",
+      "customDirection": "Or type your own",
+      "customPlaceholder": "e.g. AI SaaS Frontend Engineer",
+      "jobGap": "Focus on a job's skill gaps",
+      "jobGapPlaceholder": "Select a analyzed job",
+      "noJob": "No specific job",
+      "submit": "Generate roadmap",
+      "defaultDirection": "Frontend Engineer",
+      "rateLimited": "Daily roadmap limit reached. Try again tomorrow.",
+      "failed": "Failed to generate roadmap.",
+      "fromJobCta": "Generate roadmap for these gaps",
+      "presets": {
+        "remoteFrontend": "Remote Frontend Engineer",
+        "reactFrontend": "React Frontend Engineer",
+        "fullstackLeaning": "Full-stack leaning Frontend",
+        "aiSaasFrontend": "AI SaaS Frontend",
+        "frontendArchitect": "Frontend Architect",
+        "backendBasics": "Backend basics for frontend engineers",
+        "betterUiSlicing": "Better UI slicing / layout skills"
+      }
+    },
+    "prompts": {
+      "title": "Learning prompt library",
+      "beginner": "Beginner explanation",
+      "practice": "Practical exercise",
+      "interview": "Interview preparation",
+      "debugging": "Debugging / mental model",
+      "project": "Project application",
+      "copy": "Copy",
+      "copied": "Copied"
+    },
+    "roadmapDetail": {
+      "effort": "Effort: {effort}",
+      "back": "Back",
+      "skillStage": "Your skill stage",
+      "priorityCards": "Priority — learn next",
+      "treeTitle": "Roadmap structure",
+      "growthDirection": "Growth direction",
+      "uncategorized": "Other topics",
+      "difficulty": "Difficulty",
+      "careerImpact": "Career impact",
+      "nextAction": "Next step",
+      "viewTask": "View task"
+    },
+    "taskStatus": {
+      "completed": "Completed",
+      "start": "Start",
+      "done": "Done"
+    },
+    "taskNote": {
+      "label": "Task note (simple — not full knowledge base)",
+      "placeholder": "Learning notes for this task...",
+      "saveNote": "Save note",
+      "deleteNote": "Delete note"
+    },
+    "taskResources": {
+      "skill": "Skill",
+      "topic": "Topic",
+      "category": "Category",
+      "gap": "Your gap",
+      "goal": "Learning goal",
+      "practiceIdea": "Practice project",
+      "relatedSkills": "Related skills",
+      "practice": "Extra practice tasks",
+      "interviewQuestions": "Interview questions to prepare"
+    }
+  },
+  "interview": {
+    "title": "Interview Feedback",
+    "recordFeedback": "Record feedback",
+    "empty": {
+      "title": "No interview logs",
+      "description": "Record what happened in interviews to improve your next application.",
+      "action": "Record feedback"
+    },
+    "new": {
+      "title": "Record Interview Feedback",
+      "details": "Interview details",
+      "whatWentWell": "What went well",
+      "whatWentBadly": "What went badly",
+      "stuckPoints": "Where you got stuck",
+      "sampleQuestion": "Sample question asked",
+      "yourAnswer": "Your answer",
+      "saveAndAnalyze": "Save & analyze"
+    },
+    "detail": {
+      "analyzeWithAi": "Analyze feedback with AI",
+      "aiSummary": "AI Summary",
+      "yourNotes": "Your notes",
+      "well": "Well:",
+      "bad": "Bad:",
+      "stuck": "Stuck:",
+      "weakAreas": "Identified weak areas",
+      "suggestedPractice": "Suggested practice",
+      "questions": "Questions",
+      "roadmapUpdated": "Learning roadmap updated",
+      "viewRoadmap": "View learning roadmap"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "environment": "Environment",
+    "aiMode": "AI Mode",
+    "mockModeDescription": "Mock mode uses pre-generated demo data. Set AI_MODE=openai and OPENAI_API_KEY for real AI (with rate limits)."
+  },
+  "knowledge": {
+    "newNote": "New note",
+    "addNote": "Add note"
+  },
+  "outputLanguage": {
+    "label": "AI output language",
+    "en": "English",
+    "zhTw": "Traditional Chinese",
+    "bilingual": "Bilingual (EN + 中文)"
+  },
+  "enums": {
+    "workType": {
+      "REMOTE": "Remote",
+      "HYBRID": "Hybrid",
+      "ONSITE": "On-site",
+      "UNKNOWN": "Unknown"
+    },
+    "jobStatus": {
+      "SAVED": "Saved",
+      "ANALYZING": "Analyzing",
+      "INTERESTED": "Interested",
+      "NOT_SUITABLE": "Not suitable",
+      "READY_TO_APPLY": "Ready to apply",
+      "APPLIED": "Applied",
+      "HR_SCREEN": "HR screen",
+      "TECHNICAL_INTERVIEW": "Technical interview",
+      "FINAL_INTERVIEW": "Final interview",
+      "OFFER": "Offer",
+      "REJECTED": "Rejected",
+      "WITHDRAWN": "Withdrawn"
+    },
+    "applyRecommendation": {
+      "STRONG_APPLY": "Strong apply",
+      "WORTH_APPLYING": "Worth applying",
+      "STRETCH_ROLE": "Stretch role",
+      "NOT_RECOMMENDED": "Not recommended"
+    },
+    "learningTaskStatus": {
+      "NOT_STARTED": "Not started",
+      "IN_PROGRESS": "In progress",
+      "COMPLETED": "Completed",
+      "SKIPPED": "Skipped"
+    },
+    "priority": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "CRITICAL": "Critical"
+    },
+    "skillLevel": {
+      "BEGINNER": "Beginner",
+      "FAMILIAR": "Familiar",
+      "WORKING_EXPERIENCE": "Working experience",
+      "STRONG": "Strong"
+    },
+    "interviewStage": {
+      "HR_SCREEN": "HR screen",
+      "TECHNICAL_INTERVIEW": "Technical interview",
+      "FINAL_INTERVIEW": "Final interview",
+      "OTHER": "Other"
+    },
+    "interviewResult": {
+      "PENDING": "Pending",
+      "PASSED": "Passed",
+      "REJECTED": "Rejected",
+      "WITHDRAWN": "Withdrawn",
+      "UNKNOWN": "Unknown"
+    },
+    "roadmapSource": {
+      "MANUAL": "Manual",
+      "JOB_ANALYSIS": "Job analysis",
+      "INTERVIEW_FEEDBACK": "Interview feedback",
+      "AI_GENERATED": "AI generated"
+    },
+    "riskSeverity": {
+      "HIGH": "High",
+      "MEDIUM": "Medium",
+      "LOW": "Low"
+    }
+  }
+}

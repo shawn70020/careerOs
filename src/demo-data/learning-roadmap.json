@@ -1,0 +1,209 @@
+{
+  "title": "Frontend Growth Roadmap",
+  "summary": "Personalized guidance to close gaps for your target direction. Focus on production skills and job-relevant topics — not a full course.",
+  "skillStageSummary": "You have React and TypeScript fundamentals with some Vue exposure. Next priorities: React Query for server state, Testing Library for component tests, and Next.js App Router for production delivery.",
+  "tree": [
+    {
+      "label": "Core Frontend",
+      "children": [
+        { "label": "JavaScript" },
+        { "label": "TypeScript" },
+        { "label": "Browser APIs" }
+      ]
+    },
+    {
+      "label": "Framework",
+      "children": [
+        { "label": "Vue" },
+        { "label": "React" },
+        { "label": "Next.js" }
+      ]
+    },
+    {
+      "label": "Production Skills",
+      "children": [
+        { "label": "API Integration" },
+        { "label": "React Query" },
+        { "label": "Testing" },
+        { "label": "Performance" },
+        { "label": "Security" }
+      ]
+    },
+    {
+      "label": "Deployment",
+      "children": [
+        { "label": "Vercel" },
+        { "label": "Docker" },
+        { "label": "CI/CD" }
+      ]
+    },
+    {
+      "label": "Expansion",
+      "children": [
+        { "label": "Backend Basics" },
+        { "label": "Database Basics" },
+        { "label": "System Design" }
+      ]
+    }
+  ],
+  "priorityRecommendations": [
+    "React Query for server state",
+    "Testing Library fundamentals",
+    "Next.js App Router"
+  ],
+  "items": [
+    {
+      "title": "React Query for server state",
+      "topic": "Data fetching",
+      "skillName": "React Query",
+      "category": "Production Skills",
+      "priority": "HIGH",
+      "reason": "Repeatedly flagged as missing in job fit reports and required for modern React apps",
+      "gapDescription": "You fetch data with useEffect but lack patterns for cache, pagination, and mutations",
+      "suggestedGoal": "Confidently explain server vs client state and implement list + detail queries with loading/error states",
+      "difficulty": "Intermediate",
+      "careerImpact": "High — common requirement on React/Next.js JDs",
+      "suggestedNextAction": "Copy the practice prompt and build a Job List page this week",
+      "estimatedEffort": "3–5 days",
+      "practiceIdea": "Build a Job List page with loading, error, pagination, refetch, and a save/unsave mutation",
+      "relatedSkills": ["React", "TypeScript", "REST API"],
+      "learningPrompts": {
+        "beginner": "Teach me React Query in Traditional Chinese. Assume I know React useState and useEffect, but I do not understand server state. Explain the difference between React Query and Redux/Zustand with practical API fetching examples.",
+        "practice": "Design a React Query practice task for a Job List API. Include loading, error, pagination, refetch, and mutation requirements. Do not give me the solution immediately.",
+        "interview": "Help me prepare an interview answer for why React Query is useful and when it is better than fetching data directly in useEffect.",
+        "debugging": "Walk me through debugging a React Query issue where data refetches too often after a mutation. Explain staleTime, cacheTime, and invalidation mentally.",
+        "project": "How would I add React Query to a CareerOS-style job board? Outline folder structure, query keys, and which pages need queries vs mutations."
+      },
+      "practiceTasks": [
+        "Implement useQuery for GET /jobs with pagination",
+        "Add useMutation for toggling saved status with optimistic updates"
+      ],
+      "interviewQuestions": [
+        "When would you choose React Query over Redux for server data?",
+        "How do you handle authentication errors globally?"
+      ]
+    },
+    {
+      "title": "Testing Library fundamentals",
+      "topic": "Testing",
+      "skillName": "Testing Library",
+      "category": "Production Skills",
+      "priority": "HIGH",
+      "reason": "Missing from profile vs multiple JD requirements",
+      "gapDescription": "Limited evidence of component/integration tests in projects",
+      "suggestedGoal": "Write tests for user-visible behavior on 2–3 components",
+      "difficulty": "Intermediate",
+      "careerImpact": "High — signals production readiness",
+      "suggestedNextAction": "Write tests for resume analysis UI components",
+      "estimatedEffort": "1 week",
+      "practiceIdea": "Write tests for resume analysis components: loading state, error message, and successful skill list render",
+      "relatedSkills": ["React", "Vitest"],
+      "learningPrompts": {
+        "beginner": "Explain React Testing Library philosophy in Traditional Chinese. Why test behavior not implementation? Show a simple button click test.",
+        "practice": "Give me a practice exercise: test a JobCard component with title, company, and Apply button — include accessibility queries. No solution yet.",
+        "interview": "Help me answer: How do you decide what to test in a frontend feature?",
+        "debugging": "My test fails with 'Unable to find role'. Teach me a debugging checklist for RTL queries.",
+        "project": "Outline a minimal test setup for a Next.js App Router project using Vitest and Testing Library."
+      },
+      "practiceTasks": [
+        "Test async data loading with findByRole",
+        "Mock fetch in one integration-style test"
+      ],
+      "interviewQuestions": [
+        "Unit vs integration tests on the frontend?",
+        "How do you test custom hooks?"
+      ]
+    },
+    {
+      "title": "Next.js App Router",
+      "topic": "Framework",
+      "skillName": "Next.js",
+      "category": "Framework",
+      "priority": "MEDIUM",
+      "reason": "Nice-to-have on JDs; strengthens full-stack-leaning frontend profile",
+      "gapDescription": "Experience may be Pages Router only or limited dynamic routes",
+      "suggestedGoal": "Ship one feature using App Router, layouts, and dynamic [id] routes",
+      "difficulty": "Intermediate",
+      "careerImpact": "Medium–High for React frontend roles",
+      "suggestedNextAction": "Build job detail pages with dynamic routes",
+      "estimatedEffort": "1 week",
+      "practiceIdea": "Build job detail pages using App Router and dynamic routes with loading.tsx",
+      "relatedSkills": ["React", "TypeScript"],
+      "learningPrompts": {
+        "beginner": "Explain Next.js App Router vs Pages Router for someone who knows React SPA routing.",
+        "practice": "Design a practice: job list + job detail with dynamic [id], loading UI, and not-found handling. No code yet.",
+        "interview": "Prepare an answer: When do you use Server Components vs Client Components?",
+        "debugging": "Help me understand hydration errors — common causes and how to fix them in App Router.",
+        "project": "Map CareerOS pages to App Router structure: which should be server vs client components?"
+      },
+      "practiceTasks": [
+        "Create app/jobs/[id]/page.tsx with async params",
+        "Add a shared layout for dashboard sections"
+      ],
+      "interviewQuestions": [
+        "SSR vs SSG vs ISR tradeoffs?",
+        "How do you fetch data in Server Components?"
+      ]
+    },
+    {
+      "title": "Playwright E2E basics",
+      "topic": "Testing",
+      "skillName": "Playwright",
+      "category": "Production Skills",
+      "priority": "MEDIUM",
+      "reason": "Flagged in interview feedback and job analyses",
+      "gapDescription": "No E2E tests demonstrated in portfolio",
+      "suggestedGoal": "Add one critical-path E2E test (login or job save flow)",
+      "difficulty": "Intermediate",
+      "careerImpact": "Medium — differentiator for senior-leaning roles",
+      "suggestedNextAction": "Add E2E for login flow in a sample app",
+      "estimatedEffort": "3–5 days",
+      "practiceIdea": "Write E2E test for login flow and job list filter interaction",
+      "relatedSkills": ["Testing", "Next.js"],
+      "learningPrompts": {
+        "beginner": "What is Playwright and when should frontend engineers use it vs Testing Library?",
+        "practice": "Create a Playwright exercise for testing job search filter + results count. Requirements only.",
+        "interview": "How do you structure Playwright tests in CI for a monorepo?",
+        "debugging": "My Playwright test is flaky on CI — common causes and fixes?",
+        "project": "List 3 E2E scenarios worth automating in CareerOS MVP."
+      },
+      "practiceTasks": [
+        "Install Playwright in a Next.js app",
+        "Run tests in headed and headless mode"
+      ],
+      "interviewQuestions": [
+        "E2E vs component tests — how do you balance?"
+      ]
+    },
+    {
+      "title": "Deploy CareerOS to Vercel + Neon",
+      "topic": "Deployment",
+      "skillName": "Vercel",
+      "category": "Deployment",
+      "priority": "LOW",
+      "reason": "Closes the loop from dev to production — useful for portfolio storytelling",
+      "gapDescription": "Deployment experience not visible on resume",
+      "suggestedGoal": "Deploy one full-stack app with env vars and Postgres",
+      "difficulty": "Beginner",
+      "careerImpact": "Medium for portfolio; Lower for day-one job tasks",
+      "suggestedNextAction": "Deploy CareerOS to Vercel and connect Neon PostgreSQL",
+      "estimatedEffort": "1–2 days",
+      "practiceIdea": "Deploy CareerOS to Vercel and connect it to Neon PostgreSQL with migration run",
+      "relatedSkills": ["Docker", "CI/CD"],
+      "learningPrompts": {
+        "beginner": "Step-by-step: deploy a Next.js + Prisma app to Vercel with Neon. What env vars are needed?",
+        "practice": "Give me a deployment checklist exercise without solving it.",
+        "interview": "How do you explain your deployment pipeline in an interview?",
+        "debugging": "Build fails on Vercel with Prisma — typical fixes?",
+        "project": "Document CareerOS deployment architecture in 5 bullet points for README."
+      },
+      "practiceTasks": [
+        "Set DATABASE_URL in Vercel",
+        "Run prisma migrate deploy in build or post-deploy"
+      ],
+      "interviewQuestions": [
+        "How do you manage secrets in production?"
+      ]
+    }
+  ]
+}

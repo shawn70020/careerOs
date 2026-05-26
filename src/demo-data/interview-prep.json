@@ -1,0 +1,55 @@
+{
+  "outputLanguage": "BILINGUAL",
+  "categories": [
+    {
+      "category": "Technical",
+      "questions": [
+        {
+          "question": "Explain how React reconciliation works and when it causes performance issues.",
+          "questionZh": "請說明 React reconciliation 如何運作，以及何時會造成效能問題。",
+          "answerDirection": "Mention virtual DOM diff, keys, memo, and a real profiling example.",
+          "answerDirectionZh": "提到 virtual DOM diff、key、memo，並舉一個實際 profiling 例子。"
+        },
+        {
+          "question": "How would you structure data fetching in a Next.js App Router project?",
+          "questionZh": "你會如何在 Next.js App Router 專案中規劃資料取得？",
+          "answerDirection": "Server Components vs client, caching, React Query for client mutations.",
+          "answerDirectionZh": "區分 Server/Client Component、快取策略、mutation 用 React Query。"
+        }
+      ]
+    },
+    {
+      "category": "Project Experience",
+      "questions": [
+        {
+          "question": "Walk me through a feature you owned end-to-end. What tradeoffs did you make?",
+          "questionZh": "請介紹一個你端到端負責的功能，以及你做過的取捨。",
+          "answerDirection": "STAR format: context, your role, technical decisions, measurable outcome.",
+          "answerDirectionZh": "用 STAR：背景、你的角色、技術決策、可量化結果。"
+        }
+      ]
+    },
+    {
+      "category": "Behavioral",
+      "questions": [
+        {
+          "question": "Tell me about a time you disagreed with a teammate. How did you resolve it?",
+          "questionZh": "請分享一次你與同事意見不合的經驗，以及如何解決。",
+          "answerDirection": "Focus on communication, data, and outcome — not blame.",
+          "answerDirectionZh": "強調溝通、數據與結果，避免指責。"
+        }
+      ]
+    },
+    {
+      "category": "Remote Collaboration",
+      "questions": [
+        {
+          "question": "How do you handle async communication across time zones?",
+          "questionZh": "你如何處理跨時區的非同步溝通？",
+          "answerDirection": "Written updates, documentation, overlap hours, clear RFCs.",
+          "answerDirectionZh": "書面更新、文件、重疊時段、清楚的 RFC。"
+        }
+      ]
+    }
+  ]
+}

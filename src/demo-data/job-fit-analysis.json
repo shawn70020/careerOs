@@ -1,0 +1,49 @@
+{
+  "overallScore": 78,
+  "technicalMatch": 82,
+  "experienceMatch": 75,
+  "remoteReadiness": 70,
+  "englishReadiness": 62,
+  "portfolioSupport": 80,
+  "mustHaveSkills": ["React", "TypeScript", "Next.js", "REST API"],
+  "niceToHaveSkills": ["React Query", "Playwright", "GraphQL"],
+  "missingSkills": ["Playwright", "GraphQL"],
+  "recommendation": "WORTH_APPLYING",
+  "risks": [
+    "JD emphasizes Playwright E2E; limited evidence on resume",
+    "English communication listed as important for client calls"
+  ],
+  "jobRisks": [
+    {
+      "type": "VAGUE_REQUIREMENTS",
+      "title": "Vague job requirements",
+      "description": "The JD lists many technologies without clear priority or scope boundaries.",
+      "severity": "MEDIUM"
+    },
+    {
+      "type": "STACK_OVERLOAD",
+      "title": "Frontend + backend + DevOps in one role",
+      "description": "Responsibilities span UI, APIs, and infrastructure — may indicate understaffed team.",
+      "severity": "HIGH"
+    },
+    {
+      "type": "REMOTE_POLICY",
+      "title": "Unclear remote policy",
+      "description": "Says 'remote-friendly' but also requires occasional onsite without schedule detail.",
+      "severity": "MEDIUM"
+    },
+    {
+      "type": "NO_SALARY",
+      "title": "No salary range",
+      "description": "Compensation not listed; harder to evaluate fit and negotiation leverage.",
+      "severity": "LOW"
+    },
+    {
+      "type": "SENIORITY_MISMATCH",
+      "title": "Unrealistic seniority expectations",
+      "description": "Title is Mid-level but expectations read like Staff (architecture + mentoring + delivery).",
+      "severity": "HIGH"
+    }
+  ],
+  "reasoning": "Strong overlap on core frontend stack. Missing skills are learnable before interview. Worth applying with tailored resume emphasizing Next.js and testing."
+}

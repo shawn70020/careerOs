@@ -1,0 +1,555 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts         Account[]
+  sessions         Session[]
+  careerProfile    CareerProfile?
+  skills           UserSkill[]
+  resumeVersions   ResumeVersion[]
+  jobs             Job[]
+  learningRoadmaps LearningRoadmap[]
+  interviewLogs    InterviewLog[]
+  weakAreas        WeakArea[]
+  notes            KnowledgeNote[]
+  aiRequestLogs    AIRequestLog[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model CareerProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  fullName           String?
+  englishName        String?
+  email              String?
+  phone              String?
+  location           String?
+  linkedInUrl        String?
+  githubUrl          String?
+  portfolioUrl       String?
+  personalWebsite    String?
+  currentTitle       String?
+  targetRoles        String[]
+  yearsOfExperience  Float?
+  preferredWorkTypes String[]
+  preferredLocations String[]
+  expectedSalary     String?
+  availableFrom      DateTime?
+  resumeText         String?  @db.Text
+  aiSummary          String?  @db.Text
+  strengthsJson      Json?
+  weaknessesJson     Json?
+  onboardingComplete Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  experiences WorkExperience[]
+  projects    Project[]
+}
+
+model WorkExperience {
+  id        String        @id @default(cuid())
+  profileId String
+  profile   CareerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  companyName          String
+  jobTitle             String
+  startDate            DateTime?
+  endDate              DateTime?
+  isCurrent            Boolean   @default(false)
+  description          String?   @db.Text
+  technologies         String[]
+  responsibilitiesJson Json?
+  achievementsJson     Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id        String        @id @default(cuid())
+  profileId String
+  profile   CareerProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  name                String
+  type                ProjectType
+  projectUrl          String?
+  githubUrl           String?
+  demoUrl             String?
+  description         String?     @db.Text
+  technologies        String[]
+  background          String?     @db.Text
+  problem             String?     @db.Text
+  responsibility      String?     @db.Text
+  technicalChallenges String?     @db.Text
+  solution            String?     @db.Text
+  result              String?     @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ProjectType {
+  COMPANY
+  PERSONAL
+  SIDE_PROJECT
+  OPEN_SOURCE
+}
+
+model Skill {
+  id       String      @id @default(cuid())
+  name     String
+  category String
+  roleTags String[]
+  source   SkillSource @default(SYSTEM)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     UserSkill[]
+
+  @@unique([name, category])
+}
+
+model UserSkill {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId String
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  level             SkillLevel      @default(FAMILIAR)
+  yearsOfExperience Float?
+  evidenceJson      Json?
+  confidence        Float?
+  source            UserSkillSource @default(USER_SELECTED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, skillId])
+}
+
+enum SkillSource {
+  SYSTEM
+  USER_ADDED
+}
+
+enum UserSkillSource {
+  USER_SELECTED
+  RESUME_DETECTED
+  USER_ADDED
+}
+
+enum SkillLevel {
+  BEGINNER
+  FAMILIAR
+  WORKING_EXPERIENCE
+  STRONG
+}
+
+model ResumeVersion {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name               String
+  language           ResumeLanguage @default(EN)
+  targetRole         String?
+  relatedJobId       String?
+  relatedJob         Job?           @relation(fields: [relatedJobId], references: [id], onDelete: SetNull)
+  contentJson        Json
+  markdownContent    String?        @db.Text
+  originalResumeText String?        @db.Text
+  changeLogJson      Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum ResumeLanguage {
+  EN
+  ZH_TW
+  BILINGUAL
+}
+
+enum OutputLanguage {
+  EN
+  ZH_TW
+  BILINGUAL
+}
+
+model Job {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  companyName          String
+  jobTitle             String
+  jobUrl               String?
+  location             String?
+  workType             WorkType?
+  salaryRange          String?
+  description          String         @db.Text
+  status               JobStatus        @default(SAVED)
+  tags                 String[]
+  requiredSkillsJson   Json?
+  niceToHaveSkillsJson Json?
+  interviewPrepJson    Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  analysisReports     JobAnalysisReport[]
+  tailoredSuggestions TailoredResumeSuggestion[]
+  resumeVersions      ResumeVersion[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+enum WorkType {
+  REMOTE
+  HYBRID
+  ONSITE
+  UNKNOWN
+}
+
+enum JobStatus {
+  SAVED
+  ANALYZING
+  INTERESTED
+  NOT_SUITABLE
+  READY_TO_APPLY
+  APPLIED
+  HR_SCREEN
+  TECHNICAL_INTERVIEW
+  FINAL_INTERVIEW
+  OFFER
+  REJECTED
+  WITHDRAWN
+}
+
+model JobAnalysisReport {
+  id    String @id @default(cuid())
+  jobId String
+  job   Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  overallScore         Int
+  technicalMatch       Int?
+  experienceMatch      Int?
+  remoteReadiness      Int?
+  englishReadiness     Int?
+  portfolioSupport     Int?
+  mustHaveSkillsJson   Json?
+  niceToHaveSkillsJson Json?
+  missingSkillsJson    Json?
+  risksJson            Json?
+  jobRisksJson         Json?
+  recommendation       ApplyRecommendation
+  reasoning            String?             @db.Text
+  aiProvider           String?
+  aiMode               String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ApplyRecommendation {
+  STRONG_APPLY
+  WORTH_APPLYING
+  STRETCH_ROLE
+  NOT_RECOMMENDED
+}
+
+model TailoredResumeSuggestion {
+  id    String @id @default(cuid())
+  jobId String
+  job   Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  positioning           String? @db.Text
+  summarySuggestion     String? @db.Text
+  skillsToEmphasizeJson Json?
+  bulletSuggestionsJson Json?
+  keywordsToAddJson     Json?
+  sectionsToReduceJson  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LearningRoadmap {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title              String
+  targetRole         String?
+  growthDirection    String?
+  relatedJobId       String?
+  source             RoadmapSource @default(AI_GENERATED)
+  summary            String?       @db.Text
+  skillStageSummary  String?       @db.Text
+  roadmapTreeJson    Json?
+  generatedFromJson  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tasks     LearningTask[]
+
+  @@index([userId])
+}
+
+model LearningTask {
+  id        String          @id @default(cuid())
+  roadmapId String
+  roadmap   LearningRoadmap @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+
+  title                    String
+  topic                    String?
+  skillName                String?
+  category                 String?
+  priority                 Priority           @default(MEDIUM)
+  reason                   String?            @db.Text
+  gapDescription           String?            @db.Text
+  suggestedGoal            String?            @db.Text
+  difficulty               String?
+  careerImpact             String?            @db.Text
+  suggestedNextAction      String?
+  estimatedEffort          String?
+  practiceIdea             String?            @db.Text
+  status                   LearningTaskStatus @default(NOT_STARTED)
+  notes                    String?            @db.Text
+  relatedSkillsJson        Json?
+  learningPromptsJson      Json?
+  practiceTasksJson        Json?
+  interviewQuestionsJson   Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum RoadmapSource {
+  MANUAL
+  JOB_ANALYSIS
+  INTERVIEW_FEEDBACK
+  AI_GENERATED
+}
+
+enum LearningTaskStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model InterviewLog {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  companyName           String
+  jobTitle              String?
+  jobId                 String?
+  interviewDate         DateTime?
+  stage                 InterviewStage?
+  interviewerRole       String?
+  whatWentWell          String?           @db.Text
+  whatWentBadly         String?           @db.Text
+  stuckPoints           String?           @db.Text
+  result                InterviewResult?
+  notes                 String?           @db.Text
+  aiSummary             String?           @db.Text
+  weakAreasJson         Json?
+  suggestedPracticeJson Json?
+
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  questions InterviewQuestion[]
+
+  @@index([userId])
+}
+
+model InterviewQuestion {
+  id    String       @id @default(cuid())
+  logId String
+  log   InterviewLog @relation(fields: [logId], references: [id], onDelete: Cascade)
+
+  question         String
+  category         String?
+  userAnswer       String?  @db.Text
+  aiEvaluation     String?  @db.Text
+  suggestedAnswer  String?  @db.Text
+  relatedSkill     String?
+  addToMistakeBook Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum InterviewStage {
+  HR_SCREEN
+  TECHNICAL_INTERVIEW
+  FINAL_INTERVIEW
+  OTHER
+}
+
+enum InterviewResult {
+  PENDING
+  PASSED
+  REJECTED
+  WITHDRAWN
+  UNKNOWN
+}
+
+model WeakArea {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title                String
+  category             String?
+  severity             Priority         @default(MEDIUM)
+  source               WeakAreaSource
+  evidenceJson         Json?
+  suggestedActionsJson Json?
+  status               WeakAreaStatus   @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum WeakAreaSource {
+  RESUME_ANALYSIS
+  JOB_ANALYSIS
+  INTERVIEW_FEEDBACK
+  QUIZ
+  USER_MANUAL
+}
+
+enum WeakAreaStatus {
+  ACTIVE
+  IMPROVING
+  RESOLVED
+}
+
+model KnowledgeNote {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title        String
+  content      String     @db.Text
+  tags         String[]
+  relatedSkill String?
+  relatedJobId String?
+  source       NoteSource @default(MANUAL)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum NoteSource {
+  MANUAL
+  AI_GENERATED
+  INTERVIEW
+  LEARNING_TASK
+}
+
+model AIRequestLog {
+  id     String  @id @default(cuid())
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  action       AIAction
+  mode         String
+  provider     String?
+  inputTokens  Int?
+  outputTokens Int?
+  status       AIRequestStatus
+  errorMessage String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+enum AIAction {
+  RESUME_ANALYSIS
+  JOB_ANALYSIS
+  TAILORED_RESUME
+  LEARNING_ROADMAP
+  INTERVIEW_FEEDBACK
+  INTERVIEW_PREP
+}
+
+enum AIRequestStatus {
+  SUCCESS
+  FAILED
+  RATE_LIMITED
+}
