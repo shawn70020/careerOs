@@ -1,12 +1,10 @@
 import createIntlMiddleware from "next-intl/middleware";
-import NextAuth from "next-auth";
+import { getToken } from "next-auth/jwt";
 import { authConfig } from "@/auth.config";
 import { routing } from "@/i18n/routing";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-const { auth } = NextAuth(authConfig);
-
-const intlMiddleware = createIntlMiddleware(routing);
+const handleI18nRouting = createIntlMiddleware(routing);
 
 function stripLocale(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean);
@@ -26,15 +24,17 @@ function getLocaleFromPath(pathname: string): string {
   return routing.defaultLocale;
 }
 
-export default auth((req) => {
-  const intlResponse = intlMiddleware(req);
-  if (intlResponse?.status && intlResponse.status >= 300 && intlResponse.status < 400) {
+export default async function middleware(req: NextRequest) {
+  const intlResponse = handleI18nRouting(req);
+
+  if (intlResponse.headers.has("location")) {
     return intlResponse;
   }
 
   const pathname = stripLocale(req.nextUrl.pathname);
   const locale = getLocaleFromPath(req.nextUrl.pathname);
-  const isLoggedIn = !!req.auth;
+  const token = await getToken({ req, secret: authConfig.secret });
+  const isLoggedIn = !!token;
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/register");
   const isPublic =
     pathname === "/" ||
@@ -63,9 +63,9 @@ export default auth((req) => {
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, req.nextUrl));
   }
 
-  return intlResponse ?? NextResponse.next();
-});
+  return intlResponse;
+}
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api).*)"],
+  matcher: ["/", "/(en|zh-TW)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };
