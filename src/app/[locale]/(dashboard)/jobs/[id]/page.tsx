@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { JobActions } from "@/components/jobs/job-actions";
 import { InterviewPrepPanel, type PrepData } from "@/components/jobs/interview-prep-panel";
+import { TailoredResumePanel } from "@/components/jobs/tailored-resume-panel";
 import { applyRecommendationLabel, jobStatusLabel } from "@/lib/enum-labels";
 
 export default async function JobDetailPage({
@@ -39,7 +40,18 @@ export default async function JobDetailPage({
         <Button variant="ghost" asChild><Link href="/jobs">{actions("back")}</Link></Button>
       </div>
 
-      <JobActions jobId={job.id} />
+      <JobActions
+        jobId={job.id}
+        existingSuggestion={
+          latestSuggestion
+            ? {
+                id: latestSuggestion.id,
+                outputLanguage: latestSuggestion.outputLanguage,
+                applicationContentJson: latestSuggestion.applicationContentJson,
+              }
+            : null
+        }
+      />
 
       {latestReport && (
         <Card>
@@ -62,16 +74,18 @@ export default async function JobDetailPage({
         initialPrep={(job.interviewPrepJson as PrepData | null) ?? null}
       />
 
-      {latestSuggestion && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("tailoredResumeSuggestion")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm">{latestSuggestion.positioning}</p>
-          </CardContent>
-        </Card>
-      )}
+      <TailoredResumePanel
+        jobId={job.id}
+        initialSuggestion={
+          latestSuggestion
+            ? {
+                id: latestSuggestion.id,
+                outputLanguage: latestSuggestion.outputLanguage,
+                applicationContentJson: latestSuggestion.applicationContentJson,
+              }
+            : null
+        }
+      />
 
       <Card>
         <CardHeader>

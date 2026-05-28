@@ -7,6 +7,7 @@ export type ApiErrorCode =
   | "VALIDATION_ERROR"
   | "AI_PROVIDER_ERROR"
   | "RATE_LIMITED"
+  | "NO_RESUME"
   | "INTERNAL_ERROR";
 
 export function apiError(code: ApiErrorCode, message: string, status: number) {

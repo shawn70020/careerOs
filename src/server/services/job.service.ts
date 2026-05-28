@@ -1,6 +1,12 @@
 import { prisma } from "@/lib/db";
+import type { OutputLanguage } from "@/lib/output-language";
 import { getAIProvider } from "@/server/ai/ai-client";
+import {
+  parseTailoredApplicationContent,
+  type TailoredApplicationContent,
+} from "@/server/ai/schemas/tailored-resume.schema";
 import { checkRateLimit, logAIRequest } from "@/server/ai/rate-limit";
+import { TailoredResumeContextBuilder } from "@/server/services/tailored-resume-context";
 import type {
   ApplyRecommendation,
   JobStatus,
@@ -22,15 +28,6 @@ type JobFitResult = {
   risks: string[];
   jobRisks?: { type: string; title: string; description: string; severity: string }[];
   reasoning: string;
-};
-
-type TailoredResult = {
-  positioning: string;
-  summarySuggestion: string;
-  skillsToEmphasize: string[];
-  bulletSuggestions: { original: string; suggested: string; reason: string }[];
-  keywordsToAdd: string[];
-  sectionsToReduce: string[];
 };
 
 export class JobService {
@@ -162,30 +159,52 @@ export class JobService {
     return report;
   }
 
-  static async tailoredResume(userId: string, jobId: string) {
-    const job = await prisma.job.findFirst({ where: { id: jobId, userId } });
-    if (!job) throw new Error("NOT_FOUND");
-
+  static async tailoredResume(
+    userId: string,
+    jobId: string,
+    outputLanguage: OutputLanguage = "BILINGUAL"
+  ) {
     const allowed = await checkRateLimit(userId, "TAILORED_RESUME");
     if (!allowed.allowed) throw new Error("RATE_LIMITED");
 
+    const context = await TailoredResumeContextBuilder.build(userId, jobId, outputLanguage);
+
     const ai = getAIProvider();
-    const result = await ai.generateStructuredData<TailoredResult>({
+    const raw = await ai.generateStructuredData<TailoredApplicationContent>({
       action: "TAILORED_RESUME",
-      payload: { jobId },
+      payload: context,
     });
 
-    const suggestion = await prisma.tailoredResumeSuggestion.create({
-      data: {
-        jobId,
-        positioning: result.positioning,
-        summarySuggestion: result.summarySuggestion,
-        skillsToEmphasizeJson: result.skillsToEmphasize,
-        bulletSuggestionsJson: result.bulletSuggestions,
-        keywordsToAddJson: result.keywordsToAdd,
-        sectionsToReduceJson: result.sectionsToReduce,
-      },
+    const content = parseTailoredApplicationContent(raw, { strictLength: false });
+
+    const data = {
+      outputLanguage,
+      applicationContentJson: content as object,
+      positioning: content.letter.zh.body.slice(0, 200),
+      summarySuggestion: content.letter.en.body,
+      skillsToEmphasizeJson: content.matchedSkills.map((s) => s.skill),
+      bulletSuggestionsJson: content.highlights.zh.map((h, i) => ({
+        original: h,
+        suggested: content.highlights.en[i] ?? h,
+        reason: "Application highlight",
+      })),
+      keywordsToAddJson: content.matchedSkills.map((s) => s.skill),
+      sectionsToReduceJson: [],
+    };
+
+    const existing = await prisma.tailoredResumeSuggestion.findFirst({
+      where: { jobId },
+      orderBy: { createdAt: "desc" },
     });
+
+    const suggestion = existing
+      ? await prisma.tailoredResumeSuggestion.update({
+          where: { id: existing.id },
+          data,
+        })
+      : await prisma.tailoredResumeSuggestion.create({
+          data: { jobId, ...data },
+        });
 
     await logAIRequest(userId, "TAILORED_RESUME", "SUCCESS");
     return suggestion;

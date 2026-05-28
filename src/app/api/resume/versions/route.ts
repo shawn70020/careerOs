@@ -9,6 +9,8 @@ const createSchema = z.object({
   relatedJobId: z.string().optional(),
   markdownContent: z.string().optional(),
   originalResumeText: z.string().optional(),
+  language: z.enum(["EN", "ZH_TW", "BILINGUAL"]).optional(),
+  contentJson: z.record(z.unknown()).optional(),
 });
 
 export async function GET() {

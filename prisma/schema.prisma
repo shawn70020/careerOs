@@ -320,6 +320,9 @@ model TailoredResumeSuggestion {
   jobId String
   job   Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
+  outputLanguage          OutputLanguage? @default(BILINGUAL)
+  applicationContentJson  Json?
+
   positioning           String? @db.Text
   summarySuggestion     String? @db.Text
   skillsToEmphasizeJson Json?

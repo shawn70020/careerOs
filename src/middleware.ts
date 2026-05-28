@@ -33,7 +33,17 @@ export default async function middleware(req: NextRequest) {
 
   const pathname = stripLocale(req.nextUrl.pathname);
   const locale = getLocaleFromPath(req.nextUrl.pathname);
-  const token = await getToken({ req, secret: authConfig.secret });
+  const isProduction = process.env.NODE_ENV === "production";
+  const sessionCookie = isProduction
+    ? "__Secure-authjs.session-token"
+    : "authjs.session-token";
+  const token = await getToken({
+    req,
+    secret: authConfig.secret,
+    secureCookie: isProduction,
+    cookieName: sessionCookie,
+    salt: sessionCookie,
+  });
   const isLoggedIn = !!token;
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/register");
   const isPublic =

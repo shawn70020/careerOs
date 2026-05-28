@@ -238,7 +238,7 @@
       "back": "返回",
       "latestFitAnalysis": "最新契合分析",
       "viewFullReport": "查看完整報告",
-      "tailoredResumeSuggestion": "客製履歷建議",
+      "tailoredResumeSuggestion": "客製求職自傳建議",
       "jobDescription": "職缺描述"
     },
     "analysis": {
@@ -262,6 +262,29 @@
       "generateQuestions": "產生面試題",
       "regenerateQuestions": "重新產生面試題",
       "answerDirection": "建議回答方向"
+    },
+    "tailoredResume": {
+      "title": "客製求職自傳建議",
+      "generate": "產生求職自傳建議",
+      "regenerate": "重新產生求職自傳",
+      "letterZh": "求職自傳（繁體中文）",
+      "letterEn": "Application statement (English)",
+      "wordCount": "約 {count} 字／words",
+      "highlights": "條列優點",
+      "matchedSkills": "技能重疊說明",
+      "jobContext": "職缺要求",
+      "resumeEvidence": "履歷依據",
+      "relevantExperiences": "相關工作經歷",
+      "noResume": "請先於履歷分析器或職涯檔案填入履歷內容",
+      "rateLimited": "今日產生次數已達上限，請明日再試",
+      "generateFailed": "產生失敗，請稍後再試",
+      "overwriteConfirmTitle": "已有求職自傳建議",
+      "overwriteConfirmDescription": "重新產生將覆蓋目前的建議內容。若僅需微調，建議直接編輯現有內容，以免重複產生相同結果。",
+      "overwriteConfirmAction": "確認重新產生",
+      "versionOverwriteTitle": "已有求職自傳建議",
+      "versionOverwriteDescription": "可直接用現有建議建立履歷版本，或重新產生後再建立（將覆蓋現有建議）。",
+      "versionUseExisting": "使用現有建議建立版本",
+      "versionRegenerateAndCreate": "重新產生並建立版本"
     },
     "generatedVersionName": "職缺客製版"
   },

@@ -73,6 +73,7 @@ export class ResumeService {
       markdownContent?: string;
       originalResumeText?: string;
       language?: ResumeLanguage;
+      contentJson?: object;
     }
   ) {
     return prisma.resumeVersion.create({
@@ -84,7 +85,7 @@ export class ResumeService {
         markdownContent: data.markdownContent,
         originalResumeText: data.originalResumeText,
         language: data.language ?? "EN",
-        contentJson: { sections: [] },
+        contentJson: data.contentJson ?? { sections: [] },
       },
     });
   }

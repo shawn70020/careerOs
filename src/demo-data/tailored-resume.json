@@ -1,15 +1,65 @@
 {
-  "positioning": "Position as a product-minded Frontend Engineer with React/Next.js delivery and remote collaboration experience.",
-  "summarySuggestion": "Frontend Engineer specializing in React, TypeScript, and Next.js. Experienced shipping accessible UI, integrating REST APIs, and collaborating async with design and backend teams.",
-  "skillsToEmphasize": ["React", "TypeScript", "Next.js", "React Query", "Tailwind CSS"],
-  "bulletSuggestions": [
+  "detectedJobLanguage": "MIXED",
+  "letter": {
+    "zh": {
+      "body": "我應徵貴公司前端工程師職缺，是因為長期關注貴团队在 React 與 Next.js 產品上的技術深度，以及重視使用者體驗與跨職能協作的文化。過去三年我主導多個 B2B SaaS 介面重構，從需求釐清、設計對接到上線監控皆有完整經驗，與本職缺強調的端到端交付高度吻合。\n\n我具備履歷與職缺共同要求的 React、TypeScript、Next.js 與 REST API 整合能力；在現職曾以 React Query 優化資料快取策略，將核心頁面載入時間降低約三成，並建立可重用的元件庫提升團隊交付效率。我也熟悉遠端協作與英文技術文件閱讀，能快速融入分散式團隊節奏。\n\n若貴團隊需要能同時理解產品目標與工程實作的前端工程師，我能以實際專案成果與持續學習態度貢獻價值。期待有機會進一步說明我如何協助貴公司推進產品目標。",
+      "wordCount": 312
+    },
+    "en": {
+      "body": "I am applying for the Frontend Engineer role because your team’s focus on React and Next.js product delivery, combined with a strong emphasis on user experience and cross-functional collaboration, aligns closely with how I have grown my career over the past three years. I have led end-to-end delivery on multiple B2B SaaS interface rebuilds—from discovery and design handoff through launch and monitoring—which maps directly to the ownership this role expects.\n\nMy background matches your core stack: React, TypeScript, Next.js, and REST API integration. In my current role I introduced React Query caching patterns that cut key page load times by roughly thirty percent and built a shared component library that improved team throughput. I am comfortable working remotely and reading technical documentation in English, so I can integrate quickly into a distributed team.\n\nIf you need a frontend engineer who connects product goals with solid implementation, I would welcome the chance to discuss how my project outcomes and learning mindset can support your roadmap.",
+      "wordCount": 168
+    }
+  },
+  "highlights": {
+    "zh": [
+      "三年 B2B SaaS 前端端到端交付經驗",
+      "React / TypeScript / Next.js 與職缺核心技能完全對齊",
+      "以 React Query 優化效能，核心頁面載入改善約 30%",
+      "熟悉遠端協作與跨職能溝通（設計、後端、產品）",
+      "具元件庫與可維護架構實務，能提升團隊交付效率"
+    ],
+    "en": [
+      "Three years of end-to-end B2B SaaS frontend delivery",
+      "Core stack alignment: React, TypeScript, Next.js",
+      "Improved key page loads ~30% via React Query caching",
+      "Strong remote collaboration with design, backend, and product",
+      "Built a shared component library to improve team throughput"
+    ]
+  },
+  "matchedSkills": [
     {
-      "experienceId": null,
-      "original": "Built web applications with React.",
-      "suggested": "Developed customer-facing React/TypeScript features with React Query, improving page load and reducing support tickets by 15%.",
-      "reason": "Adds stack keywords and measurable outcome from real work."
+      "skill": "React",
+      "jobContext": "JD requires building customer-facing features with React",
+      "resumeEvidence": "Led React/TypeScript feature development across multiple product modules"
+    },
+    {
+      "skill": "TypeScript",
+      "jobContext": "Strong typing and maintainable frontend codebase",
+      "resumeEvidence": "Primary language for all recent frontend work"
+    },
+    {
+      "skill": "Next.js",
+      "jobContext": "App Router and SSR/SSG experience preferred",
+      "resumeEvidence": "Shipped production Next.js apps with App Router and API routes"
+    },
+    {
+      "skill": "React Query",
+      "jobContext": "Client-side data fetching and caching",
+      "resumeEvidence": "Introduced React Query and reduced page load times by ~30%"
     }
   ],
-  "keywordsToAdd": ["Next.js", "React Query", "remote collaboration", "accessibility"],
-  "sectionsToReduce": ["Older Vue-only bullets unless JD mentions Vue"]
+  "relevantExperiences": [
+    {
+      "companyName": "Acme SaaS",
+      "jobTitle": "Frontend Engineer",
+      "relevanceZh": "主導 B2B 儀表板重構，使用 React、TypeScript 與 React Query，與本職缺產品型前端工作型態高度相關。",
+      "relevanceEn": "Led B2B dashboard rebuilds with React, TypeScript, and React Query—directly relevant to this product-focused frontend role."
+    },
+    {
+      "companyName": "Startup Labs",
+      "jobTitle": "Software Engineer",
+      "relevanceZh": "早期參與 Next.js 官網與內部工具開發，累積 App Router 與 API 整合經驗。",
+      "relevanceEn": "Built Next.js marketing site and internal tools, gaining App Router and API integration experience."
+    }
+  ]
 }

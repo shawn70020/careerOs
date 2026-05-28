@@ -238,7 +238,7 @@
       "back": "Back",
       "latestFitAnalysis": "Latest fit analysis",
       "viewFullReport": "View full report",
-      "tailoredResumeSuggestion": "Tailored resume suggestion",
+      "tailoredResumeSuggestion": "Tailored application statement",
       "jobDescription": "Job description"
     },
     "analysis": {
@@ -262,6 +262,29 @@
       "generateQuestions": "Generate interview questions",
       "regenerateQuestions": "Regenerate questions",
       "answerDirection": "Answer direction"
+    },
+    "tailoredResume": {
+      "title": "Tailored application statement",
+      "generate": "Generate application statement",
+      "regenerate": "Regenerate statement",
+      "letterZh": "Application statement (Traditional Chinese)",
+      "letterEn": "Application statement (English)",
+      "wordCount": "~{count} characters / words",
+      "highlights": "Key strengths",
+      "matchedSkills": "Matched skills",
+      "jobContext": "Job requirement",
+      "resumeEvidence": "Resume evidence",
+      "relevantExperiences": "Relevant experience",
+      "noResume": "Add resume text via the resume analyzer or career profile first",
+      "rateLimited": "Daily generation limit reached. Try again tomorrow.",
+      "generateFailed": "Generation failed. Please try again later.",
+      "overwriteConfirmTitle": "Application statement already exists",
+      "overwriteConfirmDescription": "Regenerating will replace the current suggestion. If you only need small edits, update the existing text to avoid generating duplicate results.",
+      "overwriteConfirmAction": "Regenerate and replace",
+      "versionOverwriteTitle": "Application statement already exists",
+      "versionOverwriteDescription": "Create a resume version from the existing suggestion, or regenerate first (which replaces the current suggestion).",
+      "versionUseExisting": "Use existing suggestion",
+      "versionRegenerateAndCreate": "Regenerate and create version"
     },
     "generatedVersionName": "Tailored for job"
   },
