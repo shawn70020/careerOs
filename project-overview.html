@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CareerOS 專案視覺化導覽">
+  <title>CareerOS | Project Atlas</title>
+  <style>
+    :root {
+      --ink: #10212b;
+      --paper: #f6f3ec;
+      --card: #fffdf8;
+      --blue: #1e4f67;
+      --cyan: #61c4c7;
+      --orange: #ef8354;
+      --lime: #c7db78;
+      --muted: #66777f;
+      --line: rgba(16, 33, 43, .14);
+      --shadow: 0 22px 70px rgba(16, 33, 43, .11);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(97,196,199,.16), transparent 24rem),
+        radial-gradient(circle at 88% 28%, rgba(239,131,84,.12), transparent 26rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--orange); }
+    .kicker { max-width: 720px; color: var(--muted); font-size: 18px; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246,243,236,.86);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: -.03em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: white; background: var(--ink); border-radius: 50%; }
+    .nav-links { display: flex; gap: 22px; font-size: 13px; font-weight: 700; color: var(--muted); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-badge { padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 800; }
+
+    .hero { min-height: 690px; display: grid; align-items: center; padding: 72px 0 54px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 66px; align-items: center; }
+    h1 { margin: 14px 0 22px; font-size: clamp(58px, 8vw, 108px); line-height: .88; letter-spacing: -.075em; }
+    h1 span { display: block; color: var(--blue); }
+    .hero-copy { max-width: 620px; font-size: 20px; color: var(--muted); }
+    .hero-copy strong { color: var(--ink); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 18px; border-radius: 999px; font-weight: 800; border: 1px solid var(--line); background: var(--card); cursor: pointer; }
+    .btn.primary { color: white; background: var(--ink); border-color: var(--ink); }
+    .btn:hover { transform: translateY(-2px); }
+
+    .orbit { position: relative; min-height: 510px; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; border: 1px dashed rgba(16,33,43,.24); border-radius: 50%; inset: 4% 7%; animation: spin 35s linear infinite; }
+    .orbit::after { inset: 18%; animation-direction: reverse; animation-duration: 24s; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .orbit-core { position: absolute; inset: 35%; z-index: 2; display: grid; place-items: center; text-align: center; color: white; background: var(--ink); border-radius: 50%; box-shadow: var(--shadow); }
+    .orbit-core b { display: block; font-size: 26px; }
+    .orbit-node { position: absolute; z-index: 3; width: 132px; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,253,248,.93); box-shadow: 0 12px 35px rgba(16,33,43,.09); font-size: 13px; font-weight: 800; }
+    .orbit-node small { display: block; margin-top: 3px; color: var(--muted); font-weight: 500; }
+    .n1 { top: 2%; left: 36%; } .n2 { top: 22%; right: 0; } .n3 { bottom: 15%; right: 3%; }
+    .n4 { bottom: 0; left: 36%; } .n5 { bottom: 17%; left: 0; } .n6 { top: 21%; left: 0; }
+
+    .quick { padding: 20px 0 88px; }
+    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: rgba(255,253,248,.72); }
+    .metric { padding: 25px; border-right: 1px solid var(--line); }
+    .metric:last-child { border-right: 0; }
+    .metric b { display: block; font-size: 29px; letter-spacing: -.04em; }
+    .metric span { color: var(--muted); font-size: 13px; }
+
+    section { padding: 92px 0; }
+    .section-head { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: end; margin-bottom: 46px; }
+    h2 { margin: 8px 0 0; font-size: clamp(38px, 5vw, 68px); line-height: 1; letter-spacing: -.055em; }
+    h3 { margin: 0; font-size: 22px; letter-spacing: -.025em; }
+    .section-note { max-width: 650px; color: var(--muted); }
+
+    .loop { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .step { position: relative; min-height: 170px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); }
+    .step:nth-child(4n+2) { background: #e7f4f2; }
+    .step:nth-child(4n+3) { background: #fae9df; }
+    .step-number { width: 30px; height: 30px; display: grid; place-items: center; margin-bottom: 30px; border-radius: 50%; color: white; background: var(--ink); font-size: 12px; font-weight: 900; }
+    .step p { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+    .step::after { content: "→"; position: absolute; right: -13px; top: 48%; z-index: 2; color: var(--orange); font-weight: 900; }
+    .step:nth-child(4n)::after, .step:last-child::after { display: none; }
+
+    .architecture { background: var(--ink); color: #f7faf7; }
+    .architecture .eyebrow { color: var(--cyan); }
+    .architecture .section-note, .architecture .muted { color: #aebec4; }
+    .layers { display: grid; grid-template-columns: 1fr 42px 1fr 42px 1fr; align-items: stretch; gap: 12px; }
+    .layer { min-height: 330px; padding: 26px; border: 1px solid rgba(255,255,255,.16); border-radius: 22px; background: rgba(255,255,255,.055); }
+    .layer-tag { display: inline-block; margin-bottom: 55px; padding: 6px 10px; border-radius: 999px; color: var(--ink); background: var(--cyan); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+    .layer ul { padding: 0; margin: 22px 0 0; list-style: none; color: #b9c7cc; font-size: 14px; }
+    .layer li { padding: 8px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .arrow { display: grid; place-items: center; color: var(--orange); font-size: 28px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+    .provider { padding: 13px; border-radius: 12px; background: rgba(255,255,255,.08); font-size: 12px; }
+
+    .module-shell { display: grid; grid-template-columns: 290px 1fr; min-height: 540px; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; background: var(--card); box-shadow: var(--shadow); }
+    .module-nav { padding: 18px; background: #e9eee9; border-right: 1px solid var(--line); }
+    .module-btn { width: 100%; display: flex; justify-content: space-between; padding: 15px 16px; border: 0; border-radius: 12px; color: var(--muted); background: transparent; cursor: pointer; text-align: left; font-weight: 750; }
+    .module-btn.active { color: white; background: var(--ink); }
+    .module-panel { padding: 52px; display: none; }
+    .module-panel.active { display: block; animation: reveal .28s ease; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } }
+    .module-index { color: var(--orange); font-size: 13px; font-weight: 900; letter-spacing: .12em; }
+    .module-panel h3 { margin: 10px 0 16px; font-size: 40px; }
+    .module-panel > p { max-width: 720px; color: var(--muted); font-size: 17px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+    .feature { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: #faf8f2; }
+    .feature b { display: block; margin-bottom: 6px; }
+    .feature span { color: var(--muted); font-size: 13px; }
+
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+    .entity-map { padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: var(--card); }
+    .entity-root { padding: 20px; border-radius: 14px; color: white; background: var(--blue); font-weight: 900; text-align: center; }
+    .entity-line { width: 1px; height: 24px; margin: auto; background: var(--line); }
+    .entity-children { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .entity { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: #f9f6ee; }
+    .entity b { display: block; font-size: 14px; }
+    .entity small { color: var(--muted); }
+    .ownership { padding: 32px; border-radius: 24px; background: #e7f4f2; }
+    .rule { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .rule:last-child { border-bottom: 0; }
+    .rule-mark { flex: 0 0 32px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--blue); font-weight: 900; }
+    .rule p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .ai-flow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; align-items: center; }
+    .ai-node { min-height: 114px; display: grid; place-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); text-align: center; font-size: 13px; font-weight: 800; }
+    .ai-node:nth-child(odd) { transform: translateY(-10px); }
+    .ai-node:nth-child(even) { transform: translateY(10px); }
+    .ai-status { margin-top: 44px; padding: 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-radius: 18px; background: #fae9df; }
+    .status-pill { white-space: nowrap; padding: 9px 13px; border-radius: 999px; color: #7a321c; background: rgba(239,131,84,.2); font-size: 12px; font-weight: 900; }
+
+    .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .stack-card { min-height: 220px; padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+    .stack-card:nth-child(2) { background: #e7f4f2; }
+    .stack-card:nth-child(3) { background: #fae9df; }
+    .stack-card:nth-child(4) { background: #eff3d8; }
+    .stack-card .big { margin: 20px 0 8px; font-size: 30px; font-weight: 900; letter-spacing: -.04em; }
+    .stack-card p { color: var(--muted); font-size: 13px; }
+
+    .verdict { padding-bottom: 120px; }
+    .verdict-card { display: grid; grid-template-columns: 1fr .9fr; gap: 60px; padding: 58px; border-radius: 30px; color: white; background: var(--blue); box-shadow: var(--shadow); }
+    .verdict-card h2 { color: white; }
+    .check-list { display: grid; gap: 12px; }
+    .check { display: flex; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .check i { color: var(--lime); font-style: normal; font-weight: 900; }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-grid, .section-head, .data-grid, .verdict-card { grid-template-columns: 1fr; }
+      .hero { padding-top: 50px; }
+      .orbit { min-height: 440px; }
+      .quick-grid, .stack-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .loop { grid-template-columns: repeat(2, 1fr); }
+      .step:nth-child(2n)::after { display: none; }
+      .step:nth-child(4n)::after { display: none; }
+      .layers { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); min-height: 34px; }
+      .module-shell { grid-template-columns: 1fr; }
+      .module-nav { display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .module-btn { min-width: 170px; }
+      .ai-flow { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 580px) {
+      .wrap { width: min(100% - 24px, 1180px); }
+      h1 { font-size: 56px; }
+      .orbit { min-height: 390px; transform: scale(.88); margin: -20px; }
+      .quick-grid, .loop, .stack-grid, .feature-grid, .entity-children { grid-template-columns: 1fr; }
+      .metric { border-right: 0; border-bottom: 1px solid var(--line); }
+      .step::after { display: none; }
+      .module-panel { padding: 30px 22px; }
+      .module-panel h3 { font-size: 32px; }
+      .ai-flow { grid-template-columns: repeat(2, 1fr); }
+      .ai-status, .footer-inner { align-items: flex-start; flex-direction: column; }
+      .verdict-card { padding: 34px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark">C</span> CareerOS Atlas</a>
+      <div class="nav-links">
+        <a href="#loop">產品流程</a><a href="#architecture">系統架構</a><a href="#modules">功能模組</a><a href="#data">資料模型</a><a href="#ai">AI 流程</a>
+      </div>
+      <span class="nav-badge">MVP · Full-stack</span>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Project Atlas / 30-second overview</div>
+          <h1>Career<span>Operating System</span></h1>
+          <p class="hero-copy">一個為軟體工程師設計的 <strong>AI 求職與職涯成長平台</strong>。它把履歷、職缺、技能、學習與面試回饋串成同一個持續進化的工作空間。</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#loop">開始快速導覽 ↓</a>
+            <a class="btn" href="#architecture">直接看架構</a>
+          </div>
+        </div>
+        <div class="orbit" aria-label="CareerOS 核心能力圖">
+          <div class="orbit-core"><div><b>CareerOS</b><small>Career intelligence loop</small></div></div>
+          <div class="orbit-node n1">真實履歷<small>Profile & experience</small></div>
+          <div class="orbit-node n2">職缺分析<small>JD fit & risks</small></div>
+          <div class="orbit-node n3">客製履歷<small>Positioning strategy</small></div>
+          <div class="orbit-node n4">學習路線<small>Priority roadmap</small></div>
+          <div class="orbit-node n5">面試準備<small>Questions & practice</small></div>
+          <div class="orbit-node n6">回饋弱項<small>Improve next attempt</small></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="quick">
+      <div class="wrap quick-grid">
+        <div class="metric"><b>7</b><span>核心產品模組</span></div>
+        <div class="metric"><b>5 layers</b><span>模組化單體架構</span></div>
+        <div class="metric"><b>20 models</b><span>Prisma 資料實體</span></div>
+        <div class="metric"><b>2 locales</b><span>English / 繁體中文</span></div>
+      </div>
+    </div>
+
+    <section id="loop">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">01 / Product loop</div><h2>不是履歷工具，<br>是改善循環。</h2></div>
+          <p class="section-note">CareerOS 的差異在於每次求職活動都會留下結構化資訊，並影響下一次履歷調整、學習優先序與面試準備。</p>
+        </div>
+        <div class="loop">
+          <article class="step"><span class="step-number">01</span><h3>建立職涯檔案</h3><p>輸入真實履歷、經驗、作品與技能。</p></article>
+          <article class="step"><span class="step-number">02</span><h3>加入目標職缺</h3><p>保存 JD、公司、職稱與求職狀態。</p></article>
+          <article class="step"><span class="step-number">03</span><h3>分析適配度</h3><p>評估技術、經驗、遠端與作品支持度。</p></article>
+          <article class="step"><span class="step-number">04</span><h3>調整申請策略</h3><p>產生定位、重點能力與履歷段落建議。</p></article>
+          <article class="step"><span class="step-number">05</span><h3>補足技能缺口</h3><p>由目標職缺建立優先學習 Roadmap。</p></article>
+          <article class="step"><span class="step-number">06</span><h3>準備面試</h3><p>根據 JD 產生技術、專案與行為題。</p></article>
+          <article class="step"><span class="step-number">07</span><h3>記錄面試回饋</h3><p>保存卡點、回答、表現與最終結果。</p></article>
+          <article class="step"><span class="step-number">08</span><h3>更新下一輪</h3><p>弱項回寫學習任務，下一次更精準。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">02 / System architecture</div><h2>一個部署單元，<br>清楚的責任分層。</h2></div>
+          <p class="section-note">這是 Next.js 模組化單體，不是微服務。頁面與 API 共用同一個應用，但商業邏輯、AI 與資料存取保有清楚邊界。</p>
+        </div>
+        <div class="layers">
+          <article class="layer"><span class="layer-tag">PRESENTATION</span><h3>Frontend UI</h3><p class="muted">Next.js App Router、React Server/Client Components 與 Tailwind UI。</p><ul><li>頁面與表單互動</li><li>中英文路由</li><li>Loading / Error / Empty states</li><li>AI 結果視覺呈現</li></ul></article>
+          <div class="arrow">→</div>
+          <article class="layer"><span class="layer-tag">APPLICATION</span><h3>API + Domain Services</h3><p class="muted">Route Handler 處理邊界，Service 負責真正的產品規則。</p><ul><li>Auth 與 ownership</li><li>Zod 輸入驗證</li><li>Rate limit 與 AI orchestration</li><li>履歷、職缺、學習、面試服務</li></ul></article>
+          <div class="arrow">→</div>
+          <article class="layer"><span class="layer-tag">INFRASTRUCTURE</span><h3>Data + AI Providers</h3><p class="muted">Prisma/PostgreSQL 保存系統狀態；Provider 隔離 AI 實作。</p><div class="split"><div class="provider"><b>Prisma</b><br>PostgreSQL</div><div class="provider"><b>AIProvider</b><br>Mock / OpenAI</div></div><ul><li>以 userId 隔離資料</li><li>AI 結果落庫保存</li><li>本地 Docker / Neon</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">03 / Product modules</div><h2>七個模組，<br>共用一份職涯脈絡。</h2></div>
+          <p class="section-note">點選左側模組，快速理解它處理的問題、主要能力，以及在整個求職循環中的角色。</p>
+        </div>
+        <div class="module-shell">
+          <div class="module-nav" role="tablist">
+            <button class="module-btn active" data-panel="profile">職涯檔案 <span>01</span></button>
+            <button class="module-btn" data-panel="resume">履歷中心 <span>02</span></button>
+            <button class="module-btn" data-panel="jobs">職缺追蹤 <span>03</span></button>
+            <button class="module-btn" data-panel="learning">學習路線 <span>04</span></button>
+            <button class="module-btn" data-panel="interview">面試迴圈 <span>05</span></button>
+            <button class="module-btn" data-panel="dashboard">Dashboard <span>06</span></button>
+            <button class="module-btn" data-panel="demo">公開 Demo <span>07</span></button>
+          </div>
+          <div>
+            <article class="module-panel active" id="profile"><span class="module-index">MODULE 01</span><h3>Career Profile</h3><p>所有 AI 判斷的真實資料來源。保存個人資訊、目標職位、工作經驗、專案與技能證據。</p><div class="feature-grid"><div class="feature"><b>Onboarding</b><span>履歷 → 目標角色 → 技能確認</span></div><div class="feature"><b>Experience graph</b><span>工作與專案分開建模</span></div><div class="feature"><b>Skill levels</b><span>熟悉度、年資與證據</span></div><div class="feature"><b>Honest AI</b><span>只強化真實經驗，不虛構經歷</span></div></div></article>
+            <article class="module-panel" id="resume"><span class="module-index">MODULE 02</span><h3>Resume Intelligence</h3><p>把原始履歷轉成可分析、可版本化、可針對不同職缺輸出的申請素材。</p><div class="feature-grid"><div class="feature"><b>Resume analysis</b><span>摘要、優勢與弱項診斷</span></div><div class="feature"><b>Version control</b><span>保留語言、職位與關聯職缺</span></div><div class="feature"><b>Tailored strategy</b><span>定位、關鍵字與 bullet 建議</span></div><div class="feature"><b>Export</b><span>PDF 與 Markdown</span></div></div></article>
+            <article class="module-panel" id="jobs"><span class="module-index">MODULE 03</span><h3>Job Intelligence</h3><p>不只追蹤申請狀態，也把 JD 轉成適配度、風險、缺口與下一步決策。</p><div class="feature-grid"><div class="feature"><b>Pipeline</b><span>從 Saved 到 Offer / Rejected</span></div><div class="feature"><b>Fit scoring</b><span>技術、經驗、英文、遠端與作品</span></div><div class="feature"><b>Risk analysis</b><span>辨識職務內容與偏好衝突</span></div><div class="feature"><b>Skill gaps</b><span>缺失技能自動成為 WeakArea</span></div></div></article>
+            <article class="module-panel" id="learning"><span class="module-index">MODULE 04</span><h3>Learning Roadmaps</h3><p>學習不是通用課表，而是由目標職缺、現有能力與重複弱項共同決定。</p><div class="feature-grid"><div class="feature"><b>Context-aware</b><span>整合職缺報告與技能階段</span></div><div class="feature"><b>Priority tasks</b><span>Critical / High / Medium / Low</span></div><div class="feature"><b>Practice prompts</b><span>練習、面試題與下一步</span></div><div class="feature"><b>Progress notes</b><span>任務狀態與學習筆記</span></div></div></article>
+            <article class="module-panel" id="interview"><span class="module-index">MODULE 05</span><h3>Interview Feedback Loop</h3><p>面試前依 JD 準備，面試後保存真實表現，再把弱項寫回學習路線。</p><div class="feature-grid"><div class="feature"><b>JD preparation</b><span>技術、專案、行為與遠端協作題</span></div><div class="feature"><b>Interview logs</b><span>階段、題目、回答與卡點</span></div><div class="feature"><b>Weak areas</b><span>AI 整理重複問題與嚴重度</span></div><div class="feature"><b>Roadmap updates</b><span>提高優先序或新增學習任務</span></div></div></article>
+            <article class="module-panel" id="dashboard"><span class="module-index">MODULE 06</span><h3>Career Dashboard</h3><p>用一個頁面回答「我現在在哪裡、最重要的問題是什麼、下一步該做什麼」。</p><div class="feature-grid"><div class="feature"><b>Job stats</b><span>追蹤總數與申請中職缺</span></div><div class="feature"><b>Resume score</b><span>最近一次履歷分析分數</span></div><div class="feature"><b>Active weaknesses</b><span>高優先弱項集中顯示</span></div><div class="feature"><b>Next learning</b><span>當前 Roadmap 的待辦任務</span></div></div></article>
+            <article class="module-panel" id="demo"><span class="module-index">MODULE 07</span><h3>Public Demo Mode</h3><p>讓訪客不需登入即可體驗穩定的 AI 結果，同時控制公開部署的 API 成本。</p><div class="feature-grid"><div class="feature"><b>No login</b><span>/en/demo 與 /zh-TW/demo</span></div><div class="feature"><b>Mock AI</b><span>本地預生成 JSON，結果穩定</span></div><div class="feature"><b>Cost control</b><span>避免公開 Demo 無限制呼叫模型</span></div><div class="feature"><b>Portfolio-ready</b><span>適合 Vercel 公開展示</span></div></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="data">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">04 / Data model</div><h2>資料核心是 User，<br>不是 AI 對話。</h2></div>
+          <p class="section-note">系統保存的是可持續累積的職涯狀態。AI 只是分析與生成能力，真正的產品價值留在結構化資料與跨模組關聯中。</p>
+        </div>
+        <div class="data-grid">
+          <div class="entity-map"><div class="entity-root">User</div><div class="entity-line"></div><div class="entity-children"><div class="entity"><b>CareerProfile</b><small>Experience · Project</small></div><div class="entity"><b>UserSkill</b><small>Skill · Level · Evidence</small></div><div class="entity"><b>ResumeVersion</b><small>Content · Language · Job</small></div><div class="entity"><b>Job</b><small>Reports · Tailored Resume</small></div><div class="entity"><b>LearningRoadmap</b><small>LearningTask</small></div><div class="entity"><b>InterviewLog</b><small>Questions · Feedback</small></div><div class="entity"><b>WeakArea</b><small>Source · Severity · Status</small></div><div class="entity"><b>AIRequestLog</b><small>Quota · Result · Provider</small></div></div></div>
+          <div class="ownership"><h3>資料設計原則</h3><div class="rule"><span class="rule-mark">1</span><div><b>使用者資料隔離</b><p>主要查詢都帶入 userId，API 不能只靠物件 ID 讀取資料。</p></div></div><div class="rule"><span class="rule-mark">2</span><div><b>AI 結果可追蹤</b><p>分析報告、建議、弱項與 Roadmap 都保存進 PostgreSQL。</p></div></div><div class="rule"><span class="rule-mark">3</span><div><b>保留歷史版本</b><p>履歷、職缺報告與面試紀錄不只保存「最新文字」。</p></div></div><div class="rule"><span class="rule-mark">4</span><div><b>關聯形成回饋</b><p>職缺缺口與面試弱項能實際改變學習任務。</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">05 / AI workflow</div><h2>AI 在服務層，<br>不在瀏覽器裡。</h2></div>
+          <p class="section-note">前端不持有 API Key，也不直接呼叫模型。所有 AI 任務都走同一套驗證、配額、上下文建立、Provider 與資料保存流程。</p>
+        </div>
+        <div class="ai-flow"><div class="ai-node">UI action</div><div class="ai-node">API route</div><div class="ai-node">Auth check</div><div class="ai-node">Rate limit</div><div class="ai-node">Build context</div><div class="ai-node">AI provider</div><div class="ai-node">Validate output</div><div class="ai-node">Save to DB</div></div>
+        <div class="ai-status"><div><b>目前實作狀態</b><br><span>MockProvider 已支援穩定 Demo；OpenAIProvider 已建立介面，但目前仍回退 Mock，尚未真正呼叫 OpenAI API。</span></div><span class="status-pill">REAL AI: NOT WIRED YET</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">06 / Technology</div><h2>技術棧一覽。</h2></div><p class="section-note">偏向現代 TypeScript 全端產品：同一套程式庫處理 SSR、互動頁面、API、驗證與資料存取。</p></div>
+        <div class="stack-grid"><article class="stack-card"><span class="eyebrow">Frontend</span><div class="big">Next.js 15</div><p>React 19 · TypeScript · Tailwind · Radix UI · next-intl</p></article><article class="stack-card"><span class="eyebrow">Backend</span><div class="big">Route Handlers</div><p>Domain Services · Zod · Auth.js · bcrypt credentials</p></article><article class="stack-card"><span class="eyebrow">Data</span><div class="big">PostgreSQL</div><p>Prisma ORM · Docker local DB · Neon production target</p></article><article class="stack-card"><span class="eyebrow">Delivery</span><div class="big">Vercel</div><p>Mock-first public demo · Environment-based configuration</p></article></div>
+      </div>
+    </section>
+
+    <section class="verdict">
+      <div class="wrap verdict-card">
+        <div><div class="eyebrow" style="color:var(--lime)">Final read</div><h2>它現在是什麼？</h2><p style="color:#d5e0e3;font-size:18px">一個完成度不錯的全端 AI SaaS MVP，也是可公開展示的 Portfolio 專案。真正特色不是「生成一份履歷」，而是讓求職資料形成持續改善的職涯系統。</p></div>
+        <div class="check-list"><div class="check"><i>✓</i><span>產品流程與資料模型已完整串起</span></div><div class="check"><i>✓</i><span>前後端、Service、AI、Database 分層清楚</span></div><div class="check"><i>✓</i><span>公開 Demo 可離線且沒有模型成本</span></div><div class="check"><i>△</i><span>OpenAI 真實串接仍待完成</span></div><div class="check"><i>△</i><span>目前核心目標族群集中在前端工程師</span></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>CareerOS Project Atlas</span><span>Generated from the repository architecture · 2026</span></div></footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.module-btn');
+    const panels = document.querySelectorAll('.module-panel');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((item) => item.classList.remove('active'));
+        panels.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(button.dataset.panel).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
