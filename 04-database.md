@@ -1,6 +1,11 @@
 # CareerOS Database Specification
 
+> **📖 中文摘要**  
+> 本文件定義 CareerOS 資料庫設計：PostgreSQL + Prisma ORM、主要實體、Prisma Schema 建議、關聯關係、資料所有權、JSON 欄位使用、索引建議、Seed 資料與開發規範。
+
 ## Database
+
+> **中文解說：** 資料庫使用 PostgreSQL，ORM 使用 Prisma。
 
 Use:
 
@@ -10,6 +15,8 @@ Prisma ORM
 ```
 
 ## Database Design Principles
+
+> **中文解說：** 資料庫設計須支援使用者職涯檔案、工作/專案經驗、技能、履歷版本、職缺、分析報告、學習路線、面試回饋、知識庫與 AI 輸出，且所有資料以使用者為範圍。
 
 The database should support:
 
@@ -28,6 +35,8 @@ The database should support:
 ```
 
 Data should be scoped to users.
+
+> **中文解說：** 資料庫須支援使用者職涯檔案、工作/專案經驗、技能、履歷版本、職缺、分析報告、學習路線、面試回饋、知識庫筆記與 AI 輸出。**所有資料以使用者為範圍（user-scoped）。**
 
 ## Main Entities
 
@@ -51,9 +60,13 @@ KnowledgeNote
 AIRequestLog
 ```
 
+> **中文解說：** 主要實體包含 User、CareerProfile、WorkExperience、Project、Skill、UserSkill、ResumeVersion、Job、JobAnalysisReport、TailoredResumeSuggestion、LearningRoadmap、LearningTask、InterviewLog、InterviewQuestion、WeakArea、KnowledgeNote、AIRequestLog。
+
 ## Suggested Prisma Models
 
 This is a recommended starting schema. Adjust names as needed.
+
+> **中文解說：** 以下為建議的起始 Prisma Schema，可依實際需求調整命名。User 為根實體，CareerProfile 含基本資訊、目標職缺、履歷原文與 AI 摘要；WorkExperience 與 Project 掛在 CareerProfile 下。
 
 ```prisma
 model User {
@@ -163,6 +176,8 @@ enum ProjectType {
 
 ## Skill Models
 
+> **中文解說：** Skill 為系統技能模板（含 category、roleTags）；UserSkill 為使用者技能關聯，含 level、yearsOfExperience、evidence、source（USER_SELECTED / RESUME_DETECTED / USER_ADDED）。SkillLevel 分為 BEGINNER / FAMILIAR / WORKING_EXPERIENCE / STRONG。
+
 ```prisma
 model Skill {
   id        String   @id @default(cuid())
@@ -220,6 +235,8 @@ enum SkillLevel {
 
 ## Resume Models
 
+> **中文解說：** ResumeVersion 儲存履歷版本，含 name、language（EN/ZH_TW）、targetRole、relatedJobId、contentJson、markdownContent、changeLogJson 等。可綁定特定職缺。
+
 ```prisma
 model ResumeVersion {
   id        String   @id @default(cuid())
@@ -248,6 +265,8 @@ enum ResumeLanguage {
 ```
 
 ## Job Models
+
+> **中文解說：** Job 儲存職缺資訊，含 companyName、jobTitle、description、status（完整應徵管道 enum）、workType、tags 與技能 JSON。關聯 analysisReports、tailoredSuggestions、resumeVersions。
 
 ```prisma
 model Job {
@@ -302,6 +321,8 @@ enum JobStatus {
 
 ## Job Analysis Models
 
+> **中文解說：** JobAnalysisReport 儲存 Job Fit 分析結果（各維度分數、技能 JSON、recommendation enum、reasoning）。TailoredResumeSuggestion 儲存客製化履歷建議（positioning、summary、skillsToEmphasize、bulletSuggestions 等 JSON）。
+
 ```prisma
 model JobAnalysisReport {
   id     String @id @default(cuid())
@@ -354,6 +375,8 @@ model TailoredResumeSuggestion {
 ```
 
 ## Learning Models
+
+> **中文解說：** LearningRoadmap 含 title、targetRole、relatedJobId、source（MANUAL/JOB_ANALYSIS/INTERVIEW_FEEDBACK/AI_GENERATED）。LearningTask 含 priority、status、practiceTasksJson、interviewQuestionsJson 等。
 
 ```prisma
 model LearningRoadmap {
@@ -420,6 +443,8 @@ enum Priority {
 
 ## Interview Models
 
+> **中文解說：** InterviewLog 記錄面試回饋（公司、階段、優缺點、卡關處、result、aiSummary、weakAreasJson）。InterviewQuestion 為子表，記錄個別問題、回答、AI 評估與 suggestedAnswer。
+
 ```prisma
 model InterviewLog {
   id      String @id @default(cuid())
@@ -484,6 +509,8 @@ enum InterviewResult {
 
 ## Weak Area Model
 
+> **中文解說：** WeakArea 追蹤使用者弱點，含 category、severity、source（RESUME_ANALYSIS/JOB_ANALYSIS/INTERVIEW_FEEDBACK 等）、status（ACTIVE/IMPROVING/RESOLVED）與 suggestedActionsJson。
+
 ```prisma
 model WeakArea {
   id      String @id @default(cuid())
@@ -519,6 +546,8 @@ enum WeakAreaStatus {
 
 ## Knowledge Base Model
 
+> **中文解說：** KnowledgeNote 為使用者筆記，含 title、content、tags、relatedSkill、relatedJobId、source（MANUAL/AI_GENERATED/INTERVIEW/LEARNING_TASK）。
+
 ```prisma
 model KnowledgeNote {
   id      String @id @default(cuid())
@@ -545,6 +574,8 @@ enum NoteSource {
 ```
 
 ## AI Request Log
+
+> **中文解說：** AIRequestLog 記錄 AI 請求（action enum、mode、provider、token 用量、status），用於配額控制與成本追蹤。userId 可為 null（匿名請求），刪除使用者時設 SetNull。
 
 ```prisma
 model AIRequestLog {
@@ -580,6 +611,8 @@ enum AIRequestStatus {
 
 ## Important Relationships
 
+> **中文解說：** 實體關聯樹：User 為根 → CareerProfile（含 WorkExperience、Project）、UserSkill、ResumeVersion、Job（含 JobAnalysisReport、TailoredResumeSuggestion、related ResumeVersion）、LearningRoadmap（含 LearningTask）、InterviewLog（含 InterviewQuestion）、WeakArea、KnowledgeNote。
+
 ```text
 User
   ├── CareerProfile
@@ -601,6 +634,8 @@ User
 
 ## Data Ownership
 
+> **中文解說：** 所有使用者資料模型須直接或間接以 `userId` 為範圍。讀取或修改前必須檢查所有權——使用者不可存取他人的 job、resume 或 interview logs。
+
 Every user-owned model should be directly or indirectly scoped to `userId`.
 
 Before reading or modifying data, check ownership.
@@ -614,6 +649,8 @@ Examples:
 ```
 
 ## JSON Fields
+
+> **中文解說：** JSON 欄位用於 AI 輸出與彈性結構化資料（優缺點、技能列表、風險信號、練習任務、面試題等）。MVP 階段不過度正規化 AI 輸出。
 
 JSON fields are acceptable for AI outputs and flexible structured data.
 
@@ -633,6 +670,8 @@ Use JSON for:
 Do not over-normalize AI output in MVP.
 
 ## Index Recommendations
+
+> **中文解說：** 建議在 userId、status、createdAt 上加索引，優化「依使用者查詢 jobs/resumes/roadmaps/interview logs/weak areas」等常見查詢模式。
 
 Add indexes for common access patterns:
 
@@ -655,6 +694,8 @@ Important query patterns:
 
 ## Seed Data
 
+> **中文解說：** Seed 資料須包含：系統技能模板（含 Frontend/React/Vue/Full-stack 等 role tags）、Demo 使用者、Demo 履歷、Demo 職缺與 Demo AI 報告，供 Portfolio 展示使用。
+
 Create seed data for:
 
 ```text
@@ -676,6 +717,8 @@ Full-stack Engineer
 ```
 
 ## Database Development Rules
+
+> **中文解說：** 資料庫開發十則：使用 Prisma migrations、schema 可讀且依領域組織、固定狀態用 enum、AI 輸出用 JSON、避免過早過度正規化、後端服務強制檢查所有權、Seed demo 資料、履歷版本保留足夠 immutability 供比較、AI 輸出存 DB 避免重複呼叫、MVP 不存 API Key 到 DB。
 
 ```text
 1. Use Prisma migrations.

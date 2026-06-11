@@ -1,6 +1,11 @@
 # CareerOS Backend Specification
 
+> **📖 中文摘要**  
+> 本文件定義 CareerOS 後端架構：Next.js Route Handlers、Prisma + PostgreSQL、認證授權、REST-like API 設計、Service/Repository 分層、AI 整合策略（Mock/OpenAI 可切換）、速率限制與錯誤處理規範。
+
 ## Backend Approach
+
+> **中文解說：** 後端優先使用 Next.js 內建能力，技術棧為 Route Handlers、TypeScript、Prisma、PostgreSQL、Auth.js/Clerk、Zod 與 OpenAI（或相容 AI 提供者）。MVP 可建置為 Next.js 全端應用。
 
 Use Next.js backend capabilities first.
 
@@ -20,6 +25,8 @@ MVP can be built as a Next.js full-stack application.
 
 ## Backend Responsibilities
 
+> **中文解說：** 後端負責認證 session、授權與資料所有權、輸入驗證、DB 存取、AI 編排，以及履歷/職缺/學習/面試分析與匯出產生。
+
 The backend is responsible for:
 
 ```text
@@ -36,6 +43,8 @@ The backend is responsible for:
 ```
 
 The backend should never trust frontend data.
+
+> **中文解說：** 後端負責 session 驗證、授權與資料所有權檢查、輸入驗證、資料庫存取、AI 編排，以及履歷/職缺/學習/面試分析與匯出。**絕不信任前端傳入的資料。**
 
 ## API Design Style
 
@@ -58,6 +67,8 @@ src/
       ai/
       export/
 ```
+
+> **中文解說：** API 採 REST-like 風格，路由依領域分組：auth、career-profile、skills、resume、jobs、learning、interview、knowledge-base、ai、export。
 
 ## Backend Folder Structure
 
@@ -120,6 +131,8 @@ src/
     utils.ts
 ```
 
+> **中文解說：** 後端目錄分層：`server/services` 放業務邏輯、`repositories` 放資料存取、`ai` 放 provider/prompts/schemas、`auth` 放認證、`validations` 放 Zod schema，`lib` 放 db/env/utils 等共用工具。
+
 ## Authentication
 
 Use Auth.js or Clerk.
@@ -137,6 +150,8 @@ MVP requirements:
 
 Every user-owned API should check the current user.
 
+> **中文解說：** MVP 認證需求：註冊、登入、登出、取得當前使用者、保護 Dashboard 路由與 API 路由。所有使用者資料相關 API 都須驗證當前使用者身份。
+
 ## Authorization Rules
 
 Rules:
@@ -150,9 +165,15 @@ Rules:
 6. Admin-only AI testing endpoints should not be public.
 ```
 
+> **中文解說：** 授權規則：使用者只能存取自己的 career profile、jobs、resume versions、learning roadmaps、interview logs。Admin 專用 AI 測試端點不可公開。
+
 ## API Routes
 
+> **中文解說：** 以下為各領域 API 端點規格，包含 Career Profile、Work Experience、Project、Skills、Resume、Job、Job Analysis、Learning、Interview、Knowledge Base 與 Export。
+
 ## 1. Career Profile APIs
+
+> **中文解說：** GET 取得、POST 建立、PATCH 更新當前使用者的 career profile。
 
 ### GET /api/career-profile
 
@@ -178,6 +199,8 @@ Updates career profile.
 
 ## 2. Work Experience APIs
 
+> **中文解說：** 工作經驗 CRUD：POST 建立、PATCH 更新、DELETE 刪除。
+
 ### POST /api/career-profile/experiences
 
 Creates work experience.
@@ -192,6 +215,8 @@ Deletes work experience.
 
 ## 3. Project APIs
 
+> **中文解說：** 專案經驗 CRUD：POST 建立、PATCH 更新、DELETE 刪除。
+
 ### POST /api/career-profile/projects
 
 Creates project.
@@ -205,6 +230,8 @@ Updates project.
 Deletes project.
 
 ## 4. Skills APIs
+
+> **中文解說：** 技能 API：GET templates 依角色取得預設技能、GET/POST/PATCH/DELETE user-skills 管理使用者技能。
 
 ### GET /api/skills/templates?role=frontend
 
@@ -227,6 +254,8 @@ Updates skill level or evidence.
 Removes user skill.
 
 ## 5. Resume APIs
+
+> **中文解說：** 履歷 API：POST analyze 分析貼上履歷（支援 mock mode）、GET/POST/PATCH/DELETE versions 管理履歷版本。
 
 ### POST /api/resume/analyze
 
@@ -276,6 +305,8 @@ Deletes resume version.
 
 ## 6. Job APIs
 
+> **中文解說：** 職缺 CRUD，GET 支援 status/workType/tag/skill 篩選。
+
 ### GET /api/jobs
 
 Returns user's jobs.
@@ -320,6 +351,8 @@ Updates job.
 Deletes job.
 
 ## 7. Job Analysis APIs
+
+> **中文解說：** POST analyze 執行 Job Fit 分析（回傳匹配分數、技能、建議、風險與 reasoning）；POST tailored-resume 產生客製化履歷建議。
 
 ### POST /api/jobs/:id/analyze
 
@@ -371,6 +404,8 @@ Output:
 
 ## 8. Learning APIs
 
+> **中文解說：** 學習路線圖 GET 列表、POST generate 依 profile/job/缺口產生、GET 詳情、PATCH 更新 task 狀態。
+
 ### GET /api/learning/roadmaps
 
 Returns roadmaps.
@@ -398,6 +433,8 @@ Returns roadmap detail.
 Updates learning task status.
 
 ## 9. Interview APIs
+
+> **中文解說：** 面試紀錄 CRUD，POST analyze 分析回饋（回傳 weakAreas、suggestedPractice、roadmapUpdates、summary）。
 
 ### GET /api/interview/logs
 
@@ -436,6 +473,8 @@ Output:
 
 ## 10. Knowledge Base APIs
 
+> **中文解說：** 知識庫筆記 CRUD。
+
 ### GET /api/knowledge-base/notes
 
 Returns notes.
@@ -458,6 +497,8 @@ Deletes note.
 
 ## 11. Export APIs
 
+> **中文解說：** MVP 僅支援履歷匯出：POST PDF、GET Markdown。不實作報告分享或公開連結。
+
 ### POST /api/export/resume/:versionId/pdf
 
 Generates PDF resume.
@@ -472,7 +513,11 @@ Do not implement report sharing or public links.
 
 ## AI Integration
 
+> **中文解說：** AI 整合採 Provider 架構，支援 Mock 與 OpenAI 切換，公開 Demo 用 mock，開發/Admin 可用真實 API。
+
 ## AI Provider Strategy
+
+> **中文解說：** AI 層須支援 Provider 切換：`AIProvider interface → MockProvider → OpenAIProvider → 未來其他 Provider`。
 
 The AI layer must support provider switching.
 
@@ -503,6 +548,8 @@ mock
 openai
 ```
 
+> **中文解說：** 環境變數 `AI_MODE=mock|openai`，`OPENAI_API_KEY` 僅在 openai 模式使用。
+
 ## AI Provider Interface
 
 Suggested TypeScript interface:
@@ -515,6 +562,8 @@ export interface AIProvider {
 ```
 
 ## Mock Provider
+
+> **中文解說：** Mock Provider 回傳預產 JSON，用於公開 Demo、自動化測試、離線開發與成本控制。資料放在 `src/demo-data/` 目錄。
 
 Mock provider should return pre-generated JSON.
 
@@ -540,6 +589,8 @@ src/demo-data/
 
 ## OpenAI Provider
 
+> **中文解說：** OpenAI Provider 僅在伺服器端執行，從環境變數讀取 API Key，回傳結構化 JSON 並以 Zod 驗證輸出，絕不暴露 Key 給前端。
+
 OpenAI provider should:
 
 ```text
@@ -552,7 +603,11 @@ OpenAI provider should:
 
 ## AI Use Cases
 
+> **中文解說：** 五大 AI 使用場景及其輸入/輸出規格。
+
 ### Resume Analysis
+
+> **中文解說：** 輸入：履歷文字、目標職缺、使用者技能。輸出：分數、優缺點、偵測技能、ATS 建議、條列改善建議。
 
 Inputs:
 
@@ -574,6 +629,8 @@ Outputs:
 ```
 
 ### Job Fit Analysis
+
+> **中文解說：** 輸入：JD、career profile、技能、履歷。輸出：匹配分數、必備/缺失技能、Apply 建議、風險與 reasoning。
 
 Inputs:
 
@@ -597,6 +654,8 @@ Outputs:
 
 ### Tailored Resume
 
+> **中文解說：** 輸入：履歷版本、JD、Job Fit 分析。輸出：定位建議、摘要改寫、條列建議、技能強調、關鍵字。
+
 Inputs:
 
 ```text
@@ -616,6 +675,8 @@ Outputs:
 ```
 
 ### Learning Roadmap
+
+> **中文解說：** 輸入：目標職缺、缺失技能、面試回饋。輸出：路線圖項目、優先級、學習/練習任務、面試題。
 
 Inputs:
 
@@ -637,6 +698,8 @@ Outputs:
 
 ### Interview Feedback
 
+> **中文解說：** 輸入：面試問題、使用者回答、自我評估、（可選）JD。輸出：弱點、建議練習、路線圖更新、更好的回答建議。
+
 Inputs:
 
 ```text
@@ -656,6 +719,8 @@ Outputs:
 ```
 
 ## Rate Limit and Cost Control
+
+> **中文解說：** 啟用真實 AI 時須實作：每使用者每日配額、每操作限制、基本 IP rate limit、AI 請求日誌。範例配額：履歷分析 2 次/天、Job 分析 5 次/天、路線圖 2 次/天、面試回饋 3 次/天。
 
 If real AI mode is enabled, implement:
 
@@ -677,6 +742,8 @@ Interview feedback analysis: 3 times per day
 
 ## Backend Validation
 
+> **中文解說：** 所有 POST/PATCH 請求用 Zod 驗證；AI 輸出儲存前也須驗證；拒絕無效 enum；限制履歷/JD 文字長度；必要時清理使用者輸入。
+
 Use Zod for all request payloads.
 
 Rules:
@@ -690,6 +757,8 @@ Rules:
 ```
 
 ## Error Handling
+
+> **中文解說：** 所有 API 回傳一致錯誤格式 `{ error: { code, message } }`。常見 code：UNAUTHORIZED、FORBIDDEN、NOT_FOUND、VALIDATION_ERROR、AI_PROVIDER_ERROR、RATE_LIMITED、INTERNAL_ERROR。
 
 All APIs should return consistent error responses:
 
@@ -715,6 +784,8 @@ INTERNAL_ERROR
 ```
 
 ## Backend Development Rules
+
+> **中文解說：** 後端開發十則：業務邏輯在 services、DB 查詢在 repositories/service、AI 僅後端呼叫、不暴露 API Key、Zod 驗證所有輸入、檢查資料所有權、AI 輸出存 DB 供重用、公開 Demo 用 mock、優先結構化 AI 回應、API 回應穩定且型別化。
 
 ```text
 1. Keep business logic in services.
